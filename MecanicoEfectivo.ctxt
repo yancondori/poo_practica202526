@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=MecanicoEfectivo
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Efectivo\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=nombres\ apellidos\ dni\ direccion\ numSegSec\ puesto\ salario\ fechaIngreso\ numReparaciones
+comment1.target=MecanicoEfectivo(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ int)
+comment2.params=
+comment2.target=int\ getTiempoReparaciones()
+comment3.params=
+comment3.target=java.lang.String\ toString()
+numComments=4

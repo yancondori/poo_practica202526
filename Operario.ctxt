@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Operario
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Operario\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=nombres\ apellidos\ dni\ direccion\ numSegSec\ puesto\ salario\ fechaIngreso\ montajesPieza
+comment1.target=Operario(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ int)
+comment2.params=
+comment2.target=int\ getmontajesPieza()
+comment3.params=
+comment3.target=void\ registrarMontaje()
+comment4.params=
+comment4.target=int\ getTiempoTarea()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6

@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=CadenaMontaje
+comment0.text=\r\nPresentamos\ la\ clase\ que\ muestra\ la\ dinamica\ y\ logica\ de\ pasos\ en\ la\ cadena\ de\ montaje\ de\ las\ 4\ estados\ de\ vehiculo\:\r\n\ \ \ \ Clase\ EstadoMontaje\:\ CHASIS,\ MOTOR,\ TAPICERIA,\ RUEDAS\r\n\ \ \ \ Asumimos\ que\ cada\ estado\ tiene\ un\ operario\ controlando\ un\ robot\r\n
+comment1.params=
+comment1.target=CadenaMontaje()
+comment10.params=
+comment10.target=boolean\ estaFuncionando()
+comment11.params=
+comment11.target=java.lang.String\ toString()
+comment2.params=vehiculo
+comment2.target=void\ asignarVehiculo(Vehiculo)
+comment3.params=operario
+comment3.target=void\ addOperario(Operario)
+comment4.params=
+comment4.target=boolean\ avanzarTiempo()
+comment5.params=
+comment5.target=Operario\ getOperarioActual()
+comment5.text=\r\n\ Declaramos\ getOperarioActual()\ que\ devuelve\ el\ operario\ que\ esta\ trabajando\ en\ este\ momento.\r\n\ aprovechamos\ la\ caracteristica\ ordinal\ de\ los\ enums\ con\ \ .ordinal()\ que\ devuelve\ la\ posici\u00F3n\ del\ estado\ del\ montaje\r\n\ con\ (CHASIS\=0,\ MOTOR\=1,\ TAPICERIA\=2,\ RUEDAS\=3)\ que\ coincide\ exactamente\ \r\n\ con\ la\ posici\u00F3n\ del\ operario\ en\ el\ ArrayList.\r\n\r\n
+comment6.params=
+comment6.target=void\ detener()
+comment7.params=
+comment7.target=void\ reanudar()
+comment8.params=
+comment8.target=EstadoMontaje\ getEstadoActual()
+comment9.params=
+comment9.target=Vehiculo\ getVehiculo()
+numComments=12

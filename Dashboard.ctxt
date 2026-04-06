@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Dashboard
+comment0.text=\r\n\ Cuadro\ de\ mandos\ que\ muestra\ el\ estado\ de\ las\ cadenas\ de\ montaje\r\n\ y\ el\ balance\ de\ componentes\ en\ el\ almacen.\r\n\ Dise\u00F1o\ desacoplado\:\ Dashboard\ lee\ datos\ de\ Almacen\ y\ de\ las\ cadenas\ de\ montaje\r\n\ pero\ no\ modifica\ nada\ \u2014\ solo\ visualiza.\r\n
+comment1.params=almacen\ cadenas
+comment1.target=Dashboard(Almacen,\ java.util.ArrayList)
+comment2.params=
+comment2.target=void\ mostrarEstadoCadenas()
+comment3.params=
+comment3.target=void\ mostrarStockAlmacen()
+comment4.params=
+comment4.target=void\ mostrarConsolidado()
+numComments=5

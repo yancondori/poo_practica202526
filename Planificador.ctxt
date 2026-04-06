@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Planificador
+comment0.text=\r\n\ Componente\ principal\ que\ hace\ funcionar\ las\ cadenas\ de\ montaje.\r\n\ Se\ comporta\ como\ un\ reloj\:\ cada\ segundo\ ejecuta\ una\ accion.\r\n\ Implementa\ tres\ tipos\ de\ simulacion\:\ Simple,\ Compleja,\ MuyCompleja.\r\n
+comment1.params=almacen\ dashboard
+comment1.target=Planificador(Almacen,\ Dashboard)
+comment2.params=
+comment2.target=java.util.ArrayList\ getCadenas()
+comment3.params=indice\ vehiculo\ operarios
+comment3.target=void\ configurarCadenas(int,\ Vehiculo,\ java.util.ArrayList)
+comment3.text=\r\n\ Configuramos\ cada\ una\ de\ las\ 3\ cadena\ de\ montaje\ con\ un\ vehiculo\ y\ operarios.\r\n\ indice\:\ 0,\ 1,\ o\ 2\ (una\ por\ tipo\ de\ vehiculo)\r\n
+comment4.params=
+comment4.target=void\ ejecutarSimple()
+comment4.text=\r\n\ Simulacion\ Simple\ (Nivel\ 2)\:No\ se\ produce\ ningun\ problema\ en\ las\ cintas.\r\n\ Solo\ hay\ que\ considerar\ los\ tipos\ de\ operarios,\ seleccionados\ aleatoriamente.\r\n
+numComments=5

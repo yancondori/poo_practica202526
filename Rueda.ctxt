@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=Rueda
+comment0.text=\n\ Write\ a\ description\ of\ class\ Rueda\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=ancho\ diametro\ carga\ codigo
+comment1.target=Rueda(int,\ double,\ int,\ int)
+comment10.params=
+comment10.target=java.lang.String\ toString()
+comment2.params=
+comment2.target=int\ getAncho()
+comment3.params=ancho
+comment3.target=void\ setAncho(int)
+comment4.params=
+comment4.target=double\ getDiametro()
+comment5.params=diametro
+comment5.target=void\ setDiametro(double)
+comment6.params=
+comment6.target=int\ getCarga()
+comment7.params=carga
+comment7.target=void\ setCarga(int)
+comment8.params=
+comment8.target=int\ getCodigo()
+comment9.params=codigo
+comment9.target=void\ setCodigo(int)
+numComments=11

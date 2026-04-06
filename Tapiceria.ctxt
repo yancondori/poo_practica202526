@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Tapiceria
+comment0.text=\n\ Write\ a\ description\ of\ class\ Taoiceria\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=color\ metrosCuadrados
+comment1.target=Tapiceria(java.lang.String,\ double)
+comment2.params=
+comment2.target=java.lang.String\ getColor()
+comment3.params=color
+comment3.target=void\ setColor(java.lang.String)
+comment4.params=
+comment4.target=double\ getMetrosCuadrados()
+comment5.params=metrosCuadrados
+comment5.target=void\ setMetrosCuadrados(double)
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7
