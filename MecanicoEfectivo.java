@@ -14,7 +14,7 @@ public class MecanicoEfectivo extends MecanicoCinta
                 fechaIngreso, numReparaciones);
     }
     
-    public int getTiempoReparaciones()
+    public int getTiempoReparacion()
     {
         return 1;
     }
