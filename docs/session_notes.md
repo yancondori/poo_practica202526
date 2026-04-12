@@ -143,3 +143,57 @@ git push -u origin main
 > **Status → Add → Commit → Push**
 >
 > Like packing a suitcase: first *check* what's on the floor, *pack* it in the bag, *label* the bag, then *ship* it.
+
+---
+
+## 4. NullPointerException in factory_main constructor
+
+**Question:** Getting `java.lang.NullPointerException: Cannot invoke "Planificador.getCadenas()" because "this.planificador" is null` when calling `new factory_main()`. How to fix and what's the testing routine?
+
+**Answer:**
+
+### Root cause: circular dependency + wrong instantiation order
+
+`dashboard` needs `planificador.getCadenas()`, but `planificador` was null (line was commented out) and the order was wrong.
+
+**Fixed constructor in `factory_main.java`:**
+
+```java
+public factory_main()
+{
+    this.almacen = new Almacen();
+    this.planificador = new Planificador(almacen, null); // 1ro planificador, aun sin dashboard
+    this.dashboard = new Dashboard(almacen, planificador.getCadenas()); // 2do dashboard, ya puede usar planificador
+    this.planificador.setDashboard(dashboard); // 3ro cerramos la referencia circular
+}
+```
+
+### Why this order matters
+
+```
+Planificador needs → Dashboard
+Dashboard needs    → Planificador.getCadenas()
+```
+
+You can't create both at the same time. Break the circle with `setDashboard()`:
+
+```
+1. almacen      ← no dependencies, always first
+2. planificador ← needs almacen, pass null for dashboard
+3. dashboard    ← needs almacen + planificador.getCadenas()
+4. planificador.setDashboard(dashboard)  ← close the loop
+```
+
+### Testing routine in BlueJ
+
+**Step 1 — Compile:** Right-click `factory_main` → Compile (or `Ctrl+K`)
+
+**Step 2 — Instantiate:** Right-click `factory_main` → `new factory_main()` (constructor handles all internal deps now)
+
+**Step 3 — Call methods:** Right-click the object on the workbench → `cargarDatosEjemplo()` → then `menuPrincipal()`
+
+### Mental model for constructor order
+
+> Always instantiate from **most independent → most dependent**
+>
+> Ask: "Does this class need another class to exist first?" If yes, that other class goes first.

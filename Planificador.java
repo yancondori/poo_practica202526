@@ -78,7 +78,12 @@ public class Planificador
             dashboard.mostrarConsolidado();
         }
         
-        System.out.println("=== Simulacion Simple finalizada ===");    
+        System.out.println("=== Simulacion Simple finalizada ===");        
+    }        
+    
+    public void setDashboard(Dashboard dashboard)
+    {
+         this.dashboard = dashboard; // para evitar referencia circular en factory_main   
     }
 
     /**
@@ -89,7 +94,5 @@ public class Planificador
      */
     
     
-    
-    
-    
+       
 }
