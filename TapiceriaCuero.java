@@ -1,9 +1,8 @@
 
 /**
- * Write a description of class TapiceriaCuero here.
+ * Tapiceria de cuero. Hereda color y metrosCuadrados de Tapiceria.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class TapiceriaCuero extends Tapiceria
 {

@@ -1,9 +1,8 @@
 
 /**
- * Write a description of class TapiceriaAlcantara here.
+ * Tapiceria de alcantara. Hereda color y metrosCuadrados de Tapiceria.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class TapiceriaAlcantara extends Tapiceria
 {

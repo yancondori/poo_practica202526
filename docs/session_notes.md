@@ -197,3 +197,44 @@ You can't create both at the same time. Break the circle with `setDashboard()`:
 > Always instantiate from **most independent → most dependent**
 >
 > Ask: "Does this class need another class to exist first?" If yes, that other class goes first.
+
+
+FINAL PARA EL NIVEL 3
+  ---                                                                               
+  Summary of everything done          
+                                                                                    
+  Level 3 implementation (new code)                         
+                                                                                    
+  CadenaMontaje.java -- 3 new fields + 6 new methods:                               
+  - averiada, tiempoReparacion, totalAverias fields                                 
+  - provocarAveria(), estaAveriada(), iniciarReparacion(), avanzarReparacion(),     
+  getTotalAverias(), reiniciar()                                                    
+                                                                                    
+  Planificador.java -- 2 new simulation methods:            
+  - ejecutarCompleja(MecanicoEfectivo, MecanicoEstandar) -- 2 breakdowns per chain, 
+  alternating mechanic profiles                                                     
+  - ejecutarMuyCompleja(MecanicoEstandar, AdminSistema) -- 2-3 breakdowns per chain
+  + 1 power outage (5s total stop)                                                  
+                                                                                    
+  Almacen.java -- 3 new listing methods:
+  - getOperarios(), getTrabajadoresLista(), listarVehiculosFabricados()             
+                                                                                    
+  Dashboard.java -- 4 new listing methods:                                          
+  - listarOperariosPorProductividad() (sorted by montajes, bubble sort)             
+  - listarOperariosAlfabetico() (sorted by apellidos)                               
+  - listarVehiculosFabricados()                                                     
+  - mostrarEstadoCadenasDetallado() (with breakdown indicators)                     
+                                                            
+  factory_main.java -- complete rewrite:                                            
+  - Full 12-option menu covering all 3 levels               
+  - cargarDatosEjemplo() now creates 10 workers, 3 of each component, 3 vehicles, 3 
+  configured chains                                                                
+  - Helper methods to find mechanics/admin from almacen before launching simulations
+                                                                                    
+  New documents                                                                     
+                                                                                    
+  - docs/memoria_practica.md -- updated: Level 3 section now fully documented       
+  (sections 3.1-3.5)                                                                
+  - docs/manual_instrucciones.md -- new: step-by-step usage instructions + FAQ for  
+  the instructor presentation (covers polimorfismo, HashMap vs ArrayList, MVC,      
+  MotorCombustion, ordinal(), simplifications)

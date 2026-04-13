@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class MotorCombustion here.
+ * Clase abstracta intermedia para motores de combustion (gasolina e hibrido).
+ * Añade cilindrada y numCilindros que no aplican a motores electricos.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public abstract class  MotorCombustion extends Motor
 {

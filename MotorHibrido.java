@@ -1,9 +1,8 @@
 
 /**
- * Write a description of class MotorHibrido here.
+ * Motor hibrido. Hereda potencia, cilindrada y numCilindros de MotorCombustion.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class MotorHibrido extends MotorCombustion
 {

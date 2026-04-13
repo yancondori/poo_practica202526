@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class Estandar here.
+ * Operario estandar: ha realizado 10 o menos montajes de piezas.
+ * Necesita el triple de tiempo que el eficiente: 3 segundos por tarea.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class OperarioEstandar extends Operario  
 {

@@ -1,9 +1,10 @@
 
 /**
- * Write a description of class Taoiceria here.
+ * Clase abstracta base de la jerarquia de tapicerias.
+ * Atributos comunes: color y metrosCuadrados.
+ * Subclases concretas: TapiceriaCuero, TapiceriaAlcantara, TapiceriaTela.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public abstract class Tapiceria
 {
@@ -38,7 +39,7 @@ public abstract class Tapiceria
      
      public String toString()
      {
-        return "color =" + color + "metros cuadrados =" + metrosCuadrados;
+        return "color=" + color + ", metrosCuadrados=" + metrosCuadrados;
      }
 }
 

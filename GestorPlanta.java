@@ -1,9 +1,12 @@
 
 /**
- * Write a description of class GestorPlanta here.
+ * Gestor de planta: monitoriza las cadenas de montaje y configura los componentes.
+ * Es el encargado de consultar el dashboard y llamar a los mecanicos cuando hay averias.
+ * No añade campos propios — hereda directamente de Trabajador.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * <!-- TODO Nivel 3: implementar logica de monitoreo y llamada a mecanicos -->
+ *
+ * @author Yan Condori
  */
 public class GestorPlanta extends Trabajador
 {

@@ -1,9 +1,11 @@
 
 /**
- * Write a description of class Rueda here.
+ * Clase abstracta base de la jerarquia de ruedas.
+ * Atributos: ancho (mm), diametro de llanta (pulgadas), indice de carga (kg),
+ * codigo de velocidad (km/h).
+ * Subclases concretas: RuedaNormal, RuedaDeportiva, RuedaTodoT.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public abstract class Rueda
 {
@@ -63,7 +65,7 @@ public abstract class Rueda
     public String toString()
     {
         return "Rueda: ancho=" + ancho + "mm, diametro=" + diametro
-        + "carga=" + carga + "kg, velocidad=" + codigo + "km/h";
+        + "pulg, carga=" + carga + "kg, velocidad=" + codigo + "km/h";
     }
     
 }

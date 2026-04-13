@@ -1,9 +1,13 @@
 
 /**
- * Write a description of class Operario here.
+ * Clase abstracta intermedia para los operarios de la cadena de montaje.
+ * Añade el campo montajesPieza (experiencia) y el metodo abstracto getTiempoTarea()
+ * que cada subclase concreta (OperarioEficiente, OperarioEstandar) implementa
+ * con tiempos distintos — esto es polimorfismo.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * Segun enunciado: eficiente (>10 montajes) = 1 seg, estandar (<=10) = 3 seg.
+ *
+ * @author Yan Condori
  */
 public abstract class Operario extends Trabajador // abstract como padre que fuerza a sus hijos  
                                                     // a tener su propio comportamiento, estos

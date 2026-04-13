@@ -11,14 +11,21 @@ public class CadenaMontaje
     private ArrayList<Operario> operarios;
     private boolean funcionando; // boolean que se comporta como apagado/encendido (false/true) de la cinta especifica.
     private int tiempoRestante; // tiempo restante de la operacion en curso
-    
+
+    // Nivel 3: campos para gestionar averias en la cinta
+    private boolean averiada;         // true si la cinta tiene una averia pendiente
+    private int tiempoReparacion;     // cuenta atras de la reparacion en curso
+    private int totalAverias;         // contador de averias que ha tenido esta cadena
+
     public CadenaMontaje()
     {
         this.operarios = new ArrayList<>();
         this.estadoActual = EstadoMontaje.CHASIS; // empezador el montaje del vehiculo con el valor CHASIS del enum EstadoMontaje
         this.funcionando = false; // apagado incialmente y luego en el final del metodo tick()
         this.tiempoRestante = 0; // reloj de cuenta atras, indica cual es el tiempo restante para completar la pieza actual
-        
+        this.averiada = false;
+        this.tiempoReparacion = 0;
+        this.totalAverias = 0;
     }
     
     public void asignarVehiculo(Vehiculo vehiculo) // la clase Planificador indicara derivara un vehiculo vacio a este metodo asignarVehiculo()
@@ -125,7 +132,68 @@ public class CadenaMontaje
     {
         return funcionando;
     }
-    
+
+    // --- Nivel 3: metodos de gestion de averias ---
+
+    /**
+     * Provoca una averia en la cinta. La cadena queda bloqueada hasta que
+     * un mecanico la repare con iniciarReparacion().
+     */
+    public void provocarAveria()
+    {
+        this.averiada = true;
+        this.totalAverias++;
+    }
+
+    public boolean estaAveriada()
+    {
+        return averiada;
+    }
+
+    /**
+     * Un mecanico inicia la reparacion asignando su tiempo de reparacion.
+     * Cada tick del planificador decrementara este contador.
+     */
+    public void iniciarReparacion(int tiempo)
+    {
+        this.tiempoReparacion = tiempo;
+    }
+
+    /**
+     * Avanza la reparacion un segundo. Retorna true si la reparacion ha terminado.
+     */
+    public boolean avanzarReparacion()
+    {
+        if (!averiada) return false;
+        tiempoReparacion--;
+        if (tiempoReparacion <= 0)
+        {
+            averiada = false;
+            return true; // reparacion completada
+        }
+        return false; // sigue reparando
+    }
+
+    public int getTotalAverias()
+    {
+        return totalAverias;
+    }
+
+    /**
+     * Reinicia la cadena para reutilizarla con un nuevo vehiculo.
+     */
+    public void reiniciar()
+    {
+        this.vehiculo = null;
+        this.estadoActual = EstadoMontaje.CHASIS;
+        this.funcionando = false;
+        this.tiempoRestante = 0;
+        this.averiada = false;
+        this.tiempoReparacion = 0;
+        this.totalAverias = 0;
+        this.operarios.clear();
+    }
+
     public String toString()
     {
         if (vehiculo == null)

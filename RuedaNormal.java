@@ -1,9 +1,8 @@
 
 /**
- * Write a description of class RuedaNormal here.
+ * Rueda de tipo normal. Hereda todos los atributos de Rueda.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class RuedaNormal extends Rueda
 {

@@ -1,9 +1,8 @@
 
 /**
- * Write a description of class MotorGasolina here.
+ * Motor de gasolina. Hereda potencia, cilindrada y numCilindros de MotorCombustion.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class MotorGasolina extends MotorCombustion
 {

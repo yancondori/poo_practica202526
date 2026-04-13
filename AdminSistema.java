@@ -1,9 +1,11 @@
 
 /**
- * Write a description of class AdminSistema here.
+ * Administrador del sistema: vela por el correcto funcionamiento del software.
+ * Ante un apagon, restaura el sistema de gestion (2 seg) y las cadenas de montaje (3 seg).
  *
- * @author (your name)
- * @version (a version number or a date)
+ * <!-- TODO Nivel 3: integrar con simulacion MuyCompleja para gestionar caidas de luz -->
+ *
+ * @author Yan Condori
  */
 public class AdminSistema extends Trabajador
 {

@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class MotorElectrico here.
+ * Motor electrico. Hereda directamente de Motor (solo potencia).
+ * No tiene cilindrada ni numCilindros ya que no es un motor de combustion.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class MotorElectrico extends Motor
 {

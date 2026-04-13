@@ -2,10 +2,15 @@
 //import java.time.LocalDateTime; elegire usar String para las FECHAS
 
 /**
- * Write a description of class Trabajador here.
+ * Clase abstracta raiz de la jerarquia de trabajadores de la fabrica.
+ * Almacena los datos personales comunes a todos los perfiles:
+ * nombres, apellidos, DNI, direccion, numSegSoc, puesto, salario, fechaIngreso.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * Asuncion: las fechas se almacenan como String (decision del curso, no se usa Date/LocalDateTime).
+ *
+ * Subclases directas: Operario, MecanicoCinta, GestorPlanta, AdminSistema.
+ *
+ * @author Yan Condori
  */
 public abstract class Trabajador
 {

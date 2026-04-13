@@ -1,9 +1,12 @@
 
 /**
- * Write a description of class Mecanico here.
+ * Clase abstracta intermedia para los mecanicos de cinta.
+ * Añade numReparaciones (experiencia) y el metodo abstracto getTiempoReparacion().
+ * Subclases: MecanicoEfectivo (>20 reparaciones, 1 seg) y MecanicoEstandar (<=20, 2-5 seg).
  *
- * @author (your name)
- * @version (a version number or a date)
+ * Nivel 3: los mecanicos intervienen en la simulacion Compleja y MuyCompleja.
+ *
+ * @author Yan Condori
  */
 public abstract class MecanicoCinta extends Trabajador
 {

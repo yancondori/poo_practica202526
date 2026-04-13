@@ -1,9 +1,13 @@
 
 /**
- * Write a description of class Motor here.
+ * Clase abstracta raiz de la jerarquia de motores.
+ * Solo contiene potencia como atributo comun a todos los motores.
+ *
+ * Asuncion de diseño: cilindrada y numCilindros solo se aplican a motores de combustion,
+ * por eso se ubican en la subclase MotorCombustion y no aqui.
+ * MotorElectrico hereda directamente de Motor (solo potencia).
  *
  * @author Yan Condori
- * @version (a version number or a date)
  */
 public abstract class Motor // abstract como generador de las demas clases
 {

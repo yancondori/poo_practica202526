@@ -1,9 +1,8 @@
 
 /**
- * Write a description of class RuedaDeportiva here.
+ * Rueda de tipo deportiva. Hereda todos los atributos de Rueda.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class RuedaDeportiva extends Rueda
 {

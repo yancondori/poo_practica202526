@@ -1,9 +1,9 @@
 import java.util.Random;
 /**
- * Write a description of class Estandar here.
+ * Mecanico estandar: ha realizado 20 o menos reparaciones.
+ * Tarda entre 2 y 5 segundos en reparar (aleatorio con Random).
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class MecanicoEstandar extends MecanicoCinta
 {
@@ -17,9 +17,8 @@ public class MecanicoEstandar extends MecanicoCinta
     public int getTiempoReparacion()
     {
         Random rand = new Random();
-        return rand.nextInt(4) + 2; // numero aleatorio entre 1 y 5 
-        // en parametro "n" en rand.nextInt(n), es la frontera superior, si es n = 6, daria de 0,1,2,3,4,5,
-        // nunca se mostraria n.
+        return rand.nextInt(4) + 2; // numero aleatorio entre 2 y 5 (segun enunciado: de 2 a 5 segundos)
+        // rand.nextInt(4) genera 0,1,2,3 → sumando 2 obtenemos 2,3,4,5
     }
     
     public String toString()

@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class BiplazaDeportivo here.
+ * Clase concreta que representa un vehiculo de tipo Biplaza Deportivo.
+ * Hereda todos los atributos de Vehiculo sin añadir campos propios.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class BiplazaDeportivo extends Vehiculo
 {

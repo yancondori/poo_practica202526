@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class Efectivo here.
+ * Mecanico efectivo: ha realizado mas de 20 reparaciones.
+ * Repara cualquier problema en 1 segundo (getTiempoReparacion() retorna 1).
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class MecanicoEfectivo extends MecanicoCinta
 {

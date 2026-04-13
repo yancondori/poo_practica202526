@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class Eficiente here.
+ * Operario eficiente: ha realizado mas de 10 montajes de piezas.
+ * Completa cada tarea en 1 segundo (getTiempoTarea() retorna 1).
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class OperarioEficiente extends Operario
 {

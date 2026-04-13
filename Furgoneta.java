@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class Furgoneta here.
+ * Clase concreta que representa un vehiculo de tipo Furgoneta.
+ * Hereda todos los atributos de Vehiculo sin añadir campos propios.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yan Condori
  */
 public class Furgoneta extends Vehiculo
 {

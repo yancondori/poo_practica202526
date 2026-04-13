@@ -1,14 +1,14 @@
 #BlueJ class context
 comment0.target=factory_main
-comment0.text=\r\n\r\n\ Esta\ es\ la\ clase\ principal\ de\ la\ aplicacion\r\n
+comment0.text=\n\n\ Esta\ es\ la\ clase\ principal\ de\ la\ aplicacion\n
 comment1.params=
 comment1.target=factory_main()
 comment2.params=
 comment2.target=void\ cargarDatosEjemplo()
-comment2.text=\r\n\ Carga\ datos\ de\ ejemplo\ para\ probar\ el\ sistema\r\n
+comment2.text=\n\ Carga\ datos\ de\ ejemplo\ para\ probar\ el\ sistema\n
 comment3.params=
 comment3.target=void\ menuPrincipal()
-comment3.text=\r\n\ Menu\ textual\ para\ Level\ 3\r\n
+comment3.text=\n\ Menu\ textual\ para\ Level\ 3\n
 comment4.params=args
 comment4.target=void\ main(java.lang.String[])
 numComments=5

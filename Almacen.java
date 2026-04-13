@@ -189,17 +189,55 @@ public class Almacen
     
 // impresion consolidad de datos del almacen
     public void mostrarInventario() {
-        System.out.println("--- Inventario del Almacén ---");
+        System.out.println("--- Inventario del Almacen ---");
         System.out.println("Trabajadores registrados: " + trabajadores.size());
         System.out.println("Motores en stock: " + motores.size());
-        System.out.println("Tapicerías en stock: " + tapicerias.size());
+        System.out.println("Tapicerias en stock: " + tapicerias.size());
         System.out.println("Ruedas en stock: " + ruedas.size());
-        System.out.println("Vehículos terminados: " + vehiculosFabricados.size());
+        System.out.println("Vehiculos terminados: " + vehiculosFabricados.size());
+    }
+
+    // --- Nivel 3: listados y estadisticas ---
+
+    /**
+     * Devuelve una lista de todos los operarios del sistema (eficientes y estandar).
+     * Se usa para los listados de productividad del Dashboard.
+     */
+    public ArrayList<Operario> getOperarios()
+    {
+        ArrayList<Operario> lista = new ArrayList<>();
+        for (Trabajador t : trabajadores.values())
+        {
+            if (t instanceof Operario)
+            {
+                lista.add((Operario) t);
+            }
+        }
+        return lista;
+    }
+
+    /**
+     * Devuelve todos los trabajadores como una lista para permitir iteracion
+     * y ordenacion en el Dashboard.
+     */
+    public ArrayList<Trabajador> getTrabajadoresLista()
+    {
+        return new ArrayList<>(trabajadores.values());
+    }
+
+    /**
+     * Muestra el listado detallado de vehiculos fabricados con sus componentes.
+     */
+    public void listarVehiculosFabricados()
+    {
+        System.out.println("--- Vehiculos fabricados (" + vehiculosFabricados.size() + ") ---");
+        for (int i = 0; i < vehiculosFabricados.size(); i++)
+        {
+            System.out.println((i + 1) + ". " + vehiculosFabricados.get(i));
+        }
+        if (vehiculosFabricados.isEmpty())
+        {
+            System.out.println("  (ninguno)");
+        }
     }
 }
-
-
-
-/**
- * 
- */
