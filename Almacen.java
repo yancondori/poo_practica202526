@@ -43,7 +43,7 @@ public class Almacen
     
     public void listarTrabajadores()
     {
-        for (Trabajador t : trabajadores.values())
+        for (Trabajador t : trabajadores.values()) // aplicando for-each loop a toda la coleccion trabajadores
         {
             System.out.println(t.toString());
         }
@@ -72,8 +72,8 @@ public class Almacen
     public void buscarTrabajadorNombres(String nombres) //una de las busquedas sencillas de los empleados sera por los nombres
     {
         // Trabajador t = trabajadores.get(nombre);
-        boolean encontrado = false; // flag variable 
-        for(Trabajador t : trabajadores.values())
+        boolean encontrado = false; // flag variable , valores que se reescriben en eel 
+        for(Trabajador t : trabajadores.values()) // se toma los valores del hashmap trabajadores
         {
             if(t.getNombres().equalsIgnoreCase(nombres)) // getNombres() de metodos de clase Trabajador, donde no tenemos case sensitive 
             {
@@ -82,7 +82,7 @@ public class Almacen
             }
         }
         
-        if (!encontrado) // encontrado = true, por tanto pasa a ejecutar la orden del condicional, no significa que el trabajador haya sido encontrado !!
+        if (!encontrado) // encontrado = true, entonces el condicionalif (!true) if (false), es decir se salta el print de no encontrado
         {
             System.out.println("No se ha encontrado al trabajador con nombres: " + nombres);
         }

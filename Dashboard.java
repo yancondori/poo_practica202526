@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Cuadro de mandos que muestra el estado de las cadenas de montaje
  * y el balance de componentes en el almacen.
  * Diseño desacoplado: Dashboard lee datos de Almacen y de las cadenas de montaje
- * pero no modifica nada — solo visualiza.
+ * pero no modifica nada (solo se visualiza)
  */
 public class Dashboard
 {
@@ -19,18 +19,16 @@ public class Dashboard
     
     public void mostrarEstadoCadenas()
     {
-        //No podemos unas cadenas.getvalues puesto que cadenas es un ArrayList
+        // cadenas es ArrayList, no HashMap — no existe .getValues()
         System.out.println("Estado de cadenas de montaje");
-        for (int i = 0; i < cadenas.size(); i++) // usamos for classic para el numero de cadena relacionado al indice del array 
-                                                // y asi sea amigable para la lectura
+        for (int i = 0; i < cadenas.size(); i++) // for clásico: necesitamos i para imprimir "Cadena 1, Cadena 2..."
         {
-            System.out.println("Cadena " + (i + 1) + ": " + cadenas.get(i)); // tenemos que invocar manualmente al metodo get(i) para recuperar el dato, en contraste
-                                                                                // con el for each loop
+            System.out.println("Cadena " + (i + 1) + ": " + cadenas.get(i)); // get(i) recupera el elemento por índice
         }
-    //for (CadenaMontaje c : cadenas) { // For-Each : (If we didn't care about numbering them):
-    // 'c' is already the item! We don't need .get() at all.
-    // However, we lost our 'i' counter, so we can't easily print "Cadena 1, Cadena 2"
-    //System.out.println("Cadena: " + c);
+    // Alternativa for-each — descartada porque perdemos el índice i:
+    //for (CadenaMontaje c : cadenas) {
+    //    System.out.println("Cadena: " + c); // c ya es el elemento, no necesita .get(), pero no sabemos su número
+    //}
     
     }
     
