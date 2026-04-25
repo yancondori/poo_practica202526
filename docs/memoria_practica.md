@@ -304,7 +304,7 @@ Leyenda:
 
 ### 2.1 Gestion de almacen
 
-Implementado en `Almacen.java`. Permite:
+El requerimiento de implementacion de la Gestion de almacen se realiza en la clase `Almacen.java` que  permite:
 
 - **Anadir componentes:** `addMotor()`, `addTapiceria()`, `addRueda()` insertan piezas en las listas.
 - **Quitar componentes (FIFO):** `quitarMotor()`, `quitarTapiceria()`, `quitarRueda()` extraen el primer elemento, preparado para un flujo futuro donde la cadena consuma piezas del stock.
@@ -318,7 +318,7 @@ Implementado en `Almacen.java`. Permite:
 
 ### 2.2 Gestion de trabajadores
 
-Implementado en `Almacen.java`. Permite:
+El requerimiento de implementacion de la Gestion de trabajadores se realiza en la clase `Almacen.java` que permite:
 
 - **Alta de trabajadores:** `addTrabajador(dni, trabajador)` inserta en el HashMap con el DNI como clave.
 - **Busqueda por DNI:** `buscarTrabajadorDni()` — busqueda directa al HashMap, O(1).
@@ -330,7 +330,7 @@ Implementado en `Almacen.java`. Permite:
 
 ### 2.3 Simulacion Simple (Planificador)
 
-Implementada en `Planificador.ejecutarSimple()`. Flujo:
+El Planificador simple es Implementado en la clase `Planificador.ejecutarSimple()` cuyo flujo es:
 
 1. El gestor de planta configura cada cadena con un vehiculo y 4 operarios (`configurarCadenas()`).
 2. El planificador inicia un bucle `while` que avanza segundo a segundo.
@@ -351,9 +351,9 @@ Segundo 3: tiempoRestante = 0, pasa a RUEDAS
 ...
 ```
 
-### 2.4 Consultas y stock
+### 2.4 Consultas y stock de vehiculos
 
-Implementado en `Dashboard.java`:
+Las consultas y actualizacion del stock de vehiculos es Implementado en la `Dashboard.java`:
 
 - `mostrarEstadoCadenas()`: recorre las 3 cadenas con un for clasico (para numerar "Cadena 1, 2, 3") e imprime su `toString()`.
 - `mostrarStockAlmacen()`: llama a los getters de tamanio del Almacen para imprimir el stock de motores, tapicerias, ruedas y vehiculos completados.
@@ -363,7 +363,9 @@ Tambien en `Almacen.mostrarInventario()`: imprime el total de trabajadores regis
 
 ### 2.5 Menu textual
 
-Implementado en `factory_main.menuPrincipal()` con `Scanner` y un `switch`:
+> **Nota de requisito:** segun el enunciado, la interfaz textual es un requisito del **Nivel 3** ("desarrollar una interfaz textual del sistema para que las funciones identificadas en el nivel 2 funcionen correctamente"). Esta seccion documenta la version basica del menu (Nivel 2), cuya version completa con todas las opciones se describe en la seccion 3.4.
+
+Implementado en `factory_main.menuPrincipal()` con `Scanner` y un `switch`. La version de Nivel 2 expone las funciones basicas:
 
 ```
 === Fabrica de Vehiculos ===
@@ -375,7 +377,7 @@ Implementado en `factory_main.menuPrincipal()` con `Scanner` y un `switch`:
 0. Salir
 ```
 
-`cargarDatosEjemplo()` crea instancias de prueba (operarios, motor, tapiceria, rueda, vehiculo) y configura la cadena 0 con ellos.
+`cargarDatosEjemplo()` crea instancias de prueba (operarios, motor, tapiceria, rueda, vehiculo) y configura la cadena 0 con ellos. El menu se amplia a 12 opciones en Nivel 3 (ver seccion 3.4).
 
 ---
 
