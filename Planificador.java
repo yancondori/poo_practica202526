@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 /**
- * Componente principal que hace funcionar las cadenas de montaje.
- * Se comporta como un reloj: cada segundo ejecuta una accion.
- * Implementa tres tipos de simulacion: Simple, Compleja, MuyCompleja.
+ * Componente principal que hace funcionar las cadenas de montaje
+ * Se comporta como un reloj: cada segundo ejecuta una accion
+ * Implementa tres tipos de simulacion: Simple, Compleja, MuyCompleja
  */
 public class Planificador
 {
@@ -44,8 +44,8 @@ public class Planificador
     }
     
     /**
-     * Simulacion Simple (Nivel 2):No se produce ningun problema en las cintas.
-     * Solo hay que considerar los tipos de operarios, seleccionados aleatoriamente.
+     * Simulacion Simple (Nivel 2):No se produce ningun problema en las cintas
+     * Solo hay que considerar los tipos de operarios, seleccionados aleatoriamente
      */
     
     public void ejecutarSimple()
@@ -87,12 +87,12 @@ public class Planificador
     }
 
     /**
-     * Simulacion Compleja (Nivel 3):
-     * Entran en juego los mecanicos. Al menos uno de cada perfil debe reparar
+     * Nivel 3: Simulacion Compleja:
+     * Entran en juego los mecanicos, al menos uno de cada perfil debe reparar
      * al menos dos problemas en cada cinta.
      *
-     * Estrategia: se pre-programan 2 averias por cadena en segundos determinados.
-     * Se alternan mecanico efectivo y estandar para cumplir que al menos 1 de cada
+     * Estrategia: se pre-programan 2 averias por cadena en segundos determinados
+     * se alternan mecanico efectivo y estandar para cumplir que al menos 1 de cada
      * perfil repare al menos 2 problemas.
      */
     public void ejecutarCompleja(MecanicoEfectivo mecEfectivo, MecanicoEstandar mecEstandar)
@@ -102,7 +102,7 @@ public class Planificador
         boolean todasCompletas = false;
         Random rand = new Random();
 
-        // Pre-programamos en que segundo ocurre cada averia por cadena
+        // Preprogramamos en que segundo ocurre cada averia por cadena
         // 2 averias por cadena = 6 averias totales
         // averiasProgram[cadena][averia] = segundo en el que ocurre
         int[][] averiasProgram = new int[3][2];
@@ -196,11 +196,11 @@ public class Planificador
     }
 
     /**
-     * Simulacion Muy Compleja (Nivel 3):
+     * Nivel 3: Simulacion Muy Compleja:
      * Entran en juego operarios, mecanicos estandar y administrador.
      * De 2 a 3 problemas por cadena + al menos 1 caida de luz.
      *
-     * Estrategia: se pre-programan 2-3 averias por cadena (mecanicos estandar)
+     * Estrategia: se preprograman 2-3 averias por cadena (mecanicos estandar)
      * mas 1 caida de luz global que detiene todas las cadenas (AdminSistema).
      */
     public void ejecutarMuyCompleja(MecanicoEstandar mecEstandar, AdminSistema admin)

@@ -4,7 +4,9 @@
  * Añade numReparaciones (experiencia) y el metodo abstracto getTiempoReparacion().
  * Subclases: MecanicoEfectivo (>20 reparaciones, 1 seg) y MecanicoEstandar (<=20, 2-5 seg).
  *
- * Nivel 3: los mecanicos intervienen en la simulacion Compleja y MuyCompleja.
+ * Nivel 3 IMPLEMENTADO: registrarReparaciones() y getTiempoReparacion() (abstracto) son
+ * el contrato que MecanicoEfectivo y MecanicoEstandar cumplen y que Planificador invoca
+ * en ejecutarCompleja() y ejecutarMuyCompleja().
  *
  * @author Yan Condori
  */

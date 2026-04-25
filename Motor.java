@@ -3,8 +3,9 @@
  * Clase abstracta raiz de la jerarquia de motores.
  * Solo contiene potencia como atributo comun a todos los motores.
  *
- * Asuncion de diseño: cilindrada y numCilindros solo se aplican a motores de combustion,
- * por eso se ubican en la subclase MotorCombustion y no aqui.
+ * Supuesto de diseño: cilindrada y numCilindros solo se aplican a motores de combustion,
+ * (no se aplica a motor electrico) por eso se ubican en la subclase MotorCombustion 
+ * y no en esta raiz Motor .
  * MotorElectrico hereda directamente de Motor (solo potencia).
  *
  * @author Yan Condori

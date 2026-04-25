@@ -1,12 +1,12 @@
 
 /**
- * Clase abstracta base de la jerarquia de vehiculos.
+ * Clase abstracta que es raiz de la jerarquia de vehiculos.
  * Almacena los atributos comunes a todos los tipos (color, numPlaza, tara, pesoMax)
  * y las referencias a sus componentes (Motor, Tapiceria, Rueda).
  * Subclases concretas: BiplazaDeportivo, Turismo, Furgoneta.
  *
- * Asuncion: cada vehiculo tiene un objeto Rueda que representa el modelo/tipo de neumatico,
- * no las 4 ruedas fisicas individuales (simplificacion de diseño).
+ * Supuesto: cada vehiculo tiene un objeto Rueda que representa el modelo/tipo de neumatico,
+ * no las 4 ruedas fisicas individuales (para simplificacion de diseño).
  *
  * @author Yan Condori
  */

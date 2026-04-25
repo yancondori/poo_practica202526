@@ -1,12 +1,12 @@
-    //import java.util.Date;
+//import java.util.Date;
 //import java.time.LocalDateTime; elegire usar String para las FECHAS
 
 /**
- * Clase abstracta raiz de la jerarquia de trabajadores de la fabrica.
+ * clase abstracta - generiaca que es la raiz de la jerarquia de trabajadores de la fabrica
  * Almacena los datos personales comunes a todos los perfiles:
- * nombres, apellidos, DNI, direccion, numSegSoc, puesto, salario, fechaIngreso.
+ * nombres, apellidos, DI, direccion, numSegSoc, puesto, salario, fechaIngreso.
  *
- * Asuncion: las fechas se almacenan como String (decision del curso, no se usa Date/LocalDateTime).
+ * Supuesto: las fechas se almacenan como String (decision del curso, no se usa Date/LocalDateTime).
  *
  * Subclases directas: Operario, MecanicoCinta, GestorPlanta, AdminSistema.
  *

@@ -133,7 +133,7 @@ public class CadenaMontaje
         return funcionando;
     }
 
-    // --- Nivel 3: metodos de gestion de averias ---
+    // Nivel 3: metodos de gestion de averias
 
     /**
      * Provoca una averia en la cinta. La cadena queda bloqueada hasta que
@@ -180,7 +180,7 @@ public class CadenaMontaje
     }
 
     /**
-     * Reinicia la cadena para reutilizarla con un nuevo vehiculo.
+     * Reinicia la cadena para reutilizarla con un nuevo vehiculo
      */
     public void reiniciar()
     {

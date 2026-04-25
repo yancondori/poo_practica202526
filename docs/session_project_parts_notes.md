@@ -635,3 +635,36 @@ factory_main
 ### Regla clave
 
 > **BlueJ dibuja la flecha hacia el tipo escrito en el código fuente.** Si el tipo es abstracto (`Operario`, `Vehiculo`), la flecha apunta al abstracto. Si es concreto (`MecanicoEstandar`), debería apuntar al concreto — si no aparece, el diagrama está desactualizado o BlueJ lo colapsó hacia el padre de la jerarquía.
+
+---
+
+## Dashboard — dependencias y ausencia de output a otras clases
+
+### Inputs (dependencias)
+
+| Dependencia | Cómo entra |
+|---|---|
+| `Almacen` | pasado en constructor, guardado como campo |
+| `ArrayList<CadenaMontaje>` | pasado en constructor, guardado como campo |
+
+Ambos vienen de `factory_main`, que crea Dashboard y se los pasa.
+
+### Outputs — NINGUNO hacia otras clases
+
+No hay ninguna flecha saliendo de Dashboard en el diagrama porque Dashboard **solo imprime a consola** (`System.out.println`). Nunca llama un método que modifique otro objeto. Solo usa getters:
+
+```java
+almacen.getMotoresSize()       // lee, nunca escribe
+almacen.getOperarios()         // lee, nunca escribe
+cadenas.get(i).estaAveriada()  // lee, nunca escribe
+```
+
+### Por qué es intencional — patrón MVC
+
+```
+Almacen + CadenaMontaje = Model      (datos)
+Planificador            = Controller (modifica los datos)
+Dashboard               = View       (solo lee e imprime)
+```
+
+Dashboard es un **pure sink** — los datos fluyen hacia él, procesa e imprime, nada fluye de vuelta. Si quisieras una UI gráfica en lugar de consola, solo reemplazarías Dashboard sin tocar nada más.

@@ -56,7 +56,7 @@ El sistema permite tres niveles de simulacion:
 |-------|-----|----------|
 | Operario eficiente | Controla robots de montaje. >10 montajes, 1 seg/tarea | `OperarioEficiente` |
 | Operario estandar | Controla robots de montaje. <=10 montajes, 3 seg/tarea (triple) | `OperarioEstandar` |
-| Gestor de planta | Representa el rol de gestion en el almacen. No requiere logica activa: el Planificador gestiona directamente el monitoreo y los mecanicos | `GestorPlanta` |
+| Gestor de planta | Monitoriza cadenas, configura componentes, consulta dashboard | `GestorPlanta` |
 | Administrador del sistema | Restaura el sistema ante caidas (2s gestion + 3s cadenas) | `AdminSistema` |
 | Mecanico efectivo | Repara cintas. >20 reparaciones, 1 seg/reparacion | `MecanicoEfectivo` |
 | Mecanico estandar | Repara cintas. <=20 reparaciones, 2-5 seg/reparacion (aleatorio) | `MecanicoEstandar` |
@@ -65,7 +65,7 @@ El sistema permite tres niveles de simulacion:
 
 - El **Planificador** coordina las 3 cadenas de montaje y controla el avance del tiempo (funciona como un reloj: cada segundo ejecuta una accion).
 - Los **Operarios** estan asignados a estaciones dentro de cada cadena (1 operario por estado de montaje: CHASIS, MOTOR, TAPICERIA, RUEDAS).
-- El **GestorPlanta** existe como representacion del rol en el almacen; la logica de monitoreo y coordinacion de mecanicos la ejecuta directamente el Planificador.
+- El **GestorPlanta** configura las cadenas y consulta el Dashboard.
 - El **Dashboard** lee datos del Almacen y de las cadenas — nunca los modifica (patron lectura-solo, similar a la Vista en MVC).
 - El **Almacen** es el almacen central de datos, desacoplado del resto del sistema.
 - Los **Mecanicos** y el **AdminSistema** intervienen en las simulaciones Compleja y MuyCompleja (Nivel 3).
@@ -94,7 +94,7 @@ Trabajador (abstract)
   |     |-- MecanicoEfectivo       <-- getTiempoReparacion() = 1
   |     |-- MecanicoEstandar       <-- getTiempoReparacion() = aleatorio 2-5
   |
-  |-- GestorPlanta                 <-- sin campos adicionales, rol representacional
+  |-- GestorPlanta                 <-- sin campos adicionales
   |-- AdminSistema                 <-- getTiempoRestaurarGestion()=2, getTiempoRestaurarCadenas()=3
 ```
 
@@ -493,10 +493,6 @@ Se aprovecha el metodo `ordinal()` del enum para mapear cada estado (CHASIS=0, M
 
 Como el enunciado no especifica por que criterio deben hacerse las busquedas de empleados, se adopta la decision de implementar tres tipos: por DNI (busqueda directa en HashMap), por nombres (recorrido lineal con `equalsIgnoreCase`), y por nombres + apellidos (recorrido lineal con dos criterios). Se prioriza la sencillez sobre la flexibilidad.
 
-### 4.12 GestorPlanta como clase representacional
-
-`GestorPlanta` no implementa logica activa en la simulacion. Su funcion es representar el rol de gestor dentro del almacen de trabajadores, cumpliendo con la jerarquia de herencia de `Trabajador`. La logica de monitoreo de cadenas y coordinacion de mecanicos la ejecuta directamente `Planificador`, ya que este es quien controla el bucle de tiempo y tiene acceso a las cadenas y al dashboard.
-
 ---
 
 <a id="conceptos-poo"></a>
@@ -558,7 +554,7 @@ poo_practica202526/
   |-- MecanicoCinta.java         -- Abstracta intermedia (numReparaciones, getTiempoReparacion)
   |-- MecanicoEfectivo.java      -- getTiempoReparacion() = 1 (>20 reparaciones)
   |-- MecanicoEstandar.java      -- getTiempoReparacion() = aleatorio 2-5 (<=20 reparaciones)
-  |-- GestorPlanta.java          -- Rol representacional en almacen (sin campos extra)
+  |-- GestorPlanta.java          -- Monitoriza cadenas (sin campos extra)
   |-- AdminSistema.java          -- Restaura sistema (2s gestion, 3s cadenas)
   |
   |-- Vehiculo.java              -- Abstracta raiz (color, plazas, tara, peso, componentes)
@@ -590,5 +586,4 @@ poo_practica202526/
         |-- telegram_poo.docx             -- Guia y tips del grupo de Telegram
         |-- progra_poo_s6.docx            -- Transcripcion sesion 6 del tutor
         |-- session_notes.md              -- Notas de sesiones de desarrollo
-        |-- session_project_parts_notes.md -- Notas explicativas de conceptos Java del proyecto
 ```

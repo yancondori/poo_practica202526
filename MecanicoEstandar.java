@@ -2,6 +2,7 @@ import java.util.Random;
 /**
  * Mecanico estandar: ha realizado 20 o menos reparaciones.
  * Tarda entre 2 y 5 segundos en reparar (aleatorio con Random).
+ * Nivel 3 IMPLEMENTADO: usado en Planificador.ejecutarCompleja() y ejecutarMuyCompleja().
  *
  * @author Yan Condori
  */

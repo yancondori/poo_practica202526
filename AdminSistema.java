@@ -3,7 +3,8 @@
  * Administrador del sistema: vela por el correcto funcionamiento del software.
  * Ante un apagon, restaura el sistema de gestion (2 seg) y las cadenas de montaje (3 seg).
  *
- * <!-- TODO Nivel 3: integrar con simulacion MuyCompleja para gestionar caidas de luz -->
+ * Nivel 3 IMPLEMENTADO: getTiempoRestaurarGestion() y getTiempoRestaurarCadenas() son llamados
+ * directamente por Planificador.ejecutarMuyCompleja() para gestionar la caida de luz.
  *
  * @author Yan Condori
  */

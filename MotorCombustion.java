@@ -35,7 +35,7 @@ public abstract class  MotorCombustion extends Motor
     }
  
     /**
-     * no es necesario seguir la estrructura constructor - getter - setters
+     * no es necesario seguir la estructura constructor - getter - setters
      * podemos omitir setters (serCilidrada , set numCilidros)porque ya fueron declarados en la clase padre Motor 
      */
     

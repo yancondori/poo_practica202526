@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
 /**
- * Cuadro de mandos que muestra el estado de las cadenas de montaje
+ * El Dashboard muestra el estado de las cadenas de montaje
  * y el balance de componentes en el almacen.
  * Diseño desacoplado: Dashboard lee datos de Almacen y de las cadenas de montaje
- * pero no modifica nada (solo se visualiza)
+ * ambos campos vienen de cuando factory_main crea Dashboard
+ * ambos campos no modifican nada (solo se visualizan)
  */
 public class Dashboard
 {
@@ -21,7 +22,7 @@ public class Dashboard
     {
         // cadenas es ArrayList, no HashMap — no existe .getValues()
         System.out.println("Estado de cadenas de montaje");
-        for (int i = 0; i < cadenas.size(); i++) // for clásico: necesitamos i para imprimir "Cadena 1, Cadena 2..."
+        for (int i = 0; i < cadenas.size(); i++) // for clásico: necesitamos i para imprimir "Cadena 1, cadena 2..."
         {
             System.out.println("Cadena " + (i + 1) + ": " + cadenas.get(i)); // get(i) recupera el elemento por índice
         }
@@ -51,11 +52,11 @@ public class Dashboard
         System.out.println("==============================");
     }
 
-    // --- Nivel 3: listados y estadisticas ---
+    // Nivel 3: listados y estadisticas
 
     /**
-     * Listado de operarios ordenados por productividad (montajes, de mayor a menor).
-     * Usa ordenacion burbuja para no depender de Collections.sort().
+     * Listado de operarios ordenados por productividad (montajes, de mayor a menor)
+     * Usa ordenacion burbuja o "a pares" para no depender de Collections.sort()
      */
     public void listarOperariosPorProductividad()
     {
@@ -87,7 +88,7 @@ public class Dashboard
     }
 
     /**
-     * Listado de operarios ordenados alfabeticamente por apellidos.
+     * Listado de operarios ordenados alfabeticamente por apellidos
      */
     public void listarOperariosAlfabetico()
     {
@@ -119,7 +120,7 @@ public class Dashboard
     }
 
     /**
-     * Listado de vehiculos fabricados con detalle de componentes.
+     * Listado de vehiculos fabricados con detalle de componentes
      */
     public void listarVehiculosFabricados()
     {
@@ -127,7 +128,7 @@ public class Dashboard
     }
 
     /**
-     * Muestra el estado de cada cadena incluyendo averias (Nivel 3).
+     * Muestra el estado de cada cadena incluyendo averias (Nivel 3)
      */
     public void mostrarEstadoCadenasDetallado()
     {
@@ -144,9 +145,9 @@ public class Dashboard
 
 /**
  * Nota de diseno (patron MVC):
- * Almacen y CadenaMontaje son el Modelo (datos puros).
- * Planificador es el Controlador (modifica los datos).
- * Dashboard es la Vista (solo lee e imprime el Modelo).
+ * Almacen y CadenaMontaje son el Modelo (datos puros)
+ * Planificador es el Controlador (modifica los datos)
+ * Dashboard es la Vista (solo lee e imprime el Modelo
  * Si se quisiera cambiar la visualizacion (ej. interfaz grafica),
  * solo habria que crear un nuevo Dashboard sin tocar el resto.
  */

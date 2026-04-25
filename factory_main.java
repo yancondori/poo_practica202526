@@ -2,15 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Clase principal de la aplicacion — Sistema de Gestion de Fabrica de Vehiculos.
- * Punto de entrada: main(). Contiene el menu textual para interactuar con el sistema.
+ * factory_main es clase principal de la aplicacion, es el  Sistema de Gestion de Fabrica de Vehiculos
+ * El punto de entrada: main() contiene el menu textual/usuario para interactuar con el sistema
  *
- * Orden de inicializacion (para resolver la referencia circular):
- * 1. Almacen (sin dependencias)
- * 2. Planificador (recibe Almacen, dashboard=null)
- * 3. Dashboard (recibe Almacen + cadenas del Planificador)
- * 4. planificador.setDashboard(dashboard) — cierra el ciclo
- *
+ 
  * @author Yan Condori
  */
 public class factory_main
@@ -29,11 +24,11 @@ public class factory_main
 
     /**
      * Carga datos de ejemplo para probar el sistema.
-     * Incluye operarios, mecanicos, admin, componentes y vehiculos para las 3 cadenas.
+     * Incluye operarios, mecanicos, admin, componentes y vehiculos para las 3 cadenas
      */
     public void cargarDatosEjemplo()
     {
-        // --- Operarios (4 por cadena = 12 total) ---
+        // Operarios (4 por cadena = 12 total)
         OperarioEficiente op1 = new OperarioEficiente(
             "Juan", "Garcia", "12345678A", "Calle Mayor 1",
             "28/1234567/09", "Operario", 1800.0, "2024-01-15", 15);
@@ -60,7 +55,7 @@ public class factory_main
         almacen.addTrabajador(op5.getDni(), op5);
         almacen.addTrabajador(op6.getDni(), op6);
 
-        // --- Mecanicos (Nivel 3) ---
+        //  Mecanicos para el Nivel 3
         MecanicoEfectivo mec1 = new MecanicoEfectivo(
             "Carlos", "Vega", "55555555G", "Calle Taller 1",
             "28/5555555/09", "Mecanico", 2000.0, "2021-03-01", 25);
@@ -71,21 +66,21 @@ public class factory_main
         almacen.addTrabajador(mec1.getDni(), mec1);
         almacen.addTrabajador(mec2.getDni(), mec2);
 
-        // --- AdminSistema (Nivel 3) ---
+        // AdminSistema para el Nivel 3
         AdminSistema admin = new AdminSistema(
             "Miguel", "Sanchez", "77777777I", "Calle Sistema 1",
             "28/7777777/09", "Administrador", 2200.0, "2020-01-01");
 
         almacen.addTrabajador(admin.getDni(), admin);
 
-        // --- GestorPlanta ---
+        // GestorPlanta
         GestorPlanta gestor = new GestorPlanta(
             "Laura", "Torres", "88888888J", "Calle Planta 1",
             "28/8888888/09", "Gestor", 2100.0, "2019-06-15");
 
         almacen.addTrabajador(gestor.getDni(), gestor);
 
-        // --- Componentes: 3 motores, 3 tapicerias, 3 ruedas ---
+        // Componentes: 3 motores, 3 tapicerias, 3 ruedas
         MotorGasolina motor1 = new MotorGasolina(150.0, 2.0, 4);
         MotorElectrico motor2 = new MotorElectrico(200.0);
         MotorHibrido motor3 = new MotorHibrido(180.0, 1.8, 4);
@@ -108,7 +103,7 @@ public class factory_main
         almacen.addRueda(rueda2);
         almacen.addRueda(rueda3);
 
-        // --- Vehiculos: 1 por tipo para las 3 cadenas ---
+        // Vehiculos: 1 por tipo para las 3 cadenas 
         BiplazaDeportivo coche1 = new BiplazaDeportivo(
             "Rojo", 2, 1100.0, 1500.0, motor1, tap1, rueda1);
         Turismo coche2 = new Turismo(
@@ -116,7 +111,7 @@ public class factory_main
         Furgoneta coche3 = new Furgoneta(
             "Blanco", 3, 1800.0, 3500.0, motor3, tap3, rueda3);
 
-        // --- Configurar las 3 cadenas de montaje ---
+        // Configurar las 3 cadenas de montaje
         // Cadena 0: BiplazaDeportivo con 4 operarios
         ArrayList<Operario> equipo1 = new ArrayList<>();
         equipo1.add(op1); equipo1.add(op1); equipo1.add(op2); equipo1.add(op2);
@@ -222,7 +217,7 @@ public class factory_main
 
     /**
      * Busca un MecanicoEfectivo y un MecanicoEstandar en el almacen
-     * y lanza la simulacion Compleja. Si no existen, avisa al usuario.
+     * y lanza la simulacion Compleja. Si no existen, avisa al usuario
      */
     private void ejecutarCompleja(Scanner scanner)
     {
@@ -270,3 +265,12 @@ public class factory_main
         app.menuPrincipal();
     }
 }
+/**
+* Aqui algunas notas de uso: inicializacion (para resolver la referencia circular):
+ * 1. Almacen (sin dependencias)
+ * 2. Planificador (recibe Almacen, dashboard=null)
+ * 3. Dashboard (recibe Almacen + cadenas del Planificador)
+ * 4. planificador.setDashboard(dashboard) — cierra el ciclo
+ *
+ */
+

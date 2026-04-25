@@ -2,6 +2,7 @@
 /**
  * Mecanico efectivo: ha realizado mas de 20 reparaciones.
  * Repara cualquier problema en 1 segundo (getTiempoReparacion() retorna 1).
+ * Nivel 3 IMPLEMENTADO: usado en Planificador.ejecutarCompleja() para la primera averia de cada cadena.
  *
  * @author Yan Condori
  */

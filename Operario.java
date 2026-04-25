@@ -2,8 +2,8 @@
 /**
  * Clase abstracta intermedia para los operarios de la cadena de montaje.
  * Añade el campo montajesPieza (experiencia) y el metodo abstracto getTiempoTarea()
- * que cada subclase concreta (OperarioEficiente, OperarioEstandar) implementa
- * con tiempos distintos — esto es polimorfismo.
+ * que luego cada subclase concreta (OperarioEficiente, OperarioEstandar) implementa
+ * con tiempos distintos (es decir generamos,  polimorfismo)
  *
  * Segun enunciado: eficiente (>10 montajes) = 1 seg, estandar (<=10) = 3 seg.
  *

@@ -4,7 +4,8 @@
  * Es el encargado de consultar el dashboard y llamar a los mecanicos cuando hay averias.
  * No añade campos propios — hereda directamente de Trabajador.
  *
- * <!-- TODO Nivel 3: implementar logica de monitoreo y llamada a mecanicos -->
+ * GestorPlanta No requiere logica activa: el Planificador gestiona directamente el monitoreo y los mecanicos.
+ * Esta clase existe para representar el rol en el almacen, no para intervenir en la simulacion.
  *
  * @author Yan Condori
  */

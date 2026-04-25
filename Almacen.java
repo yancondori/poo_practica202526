@@ -2,14 +2,14 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
-Almacen es la clase principal de almacenamiento de datos de la fabrica, 
-ademas es independiente (decouple -  modular y facil mantenimiento) del resto de sistema de gestion (trabajadores, dashboard, planificador o cadena de montaje)
-por lo tanto, es la clase adecuada para empezar el diseño
+Almacen es la clase principal de almacenamiento de datos de la fabrica ademas es independiente 
+(decouple -  modular y facil mantenimiento) del resto de sistema de gestion (trabajadores, dashboard, 
+planificador o cadena de montaje) por lo tanto, es la clase adecuada para empezar el diseño
    */
 public class Almacen
 {
     private HashMap<String, Trabajador> trabajadores; // usamos un hashmap , clave-valor para realizar un busqueda eficiente lookup de los trabajadores 
-                                                        // a traves del DNI,
+                                                        // a traves de la clave string DNI y el valor Trabajador Object,
     private ArrayList<Motor> motores;   // usamos arraylist porque es una coleccion flexible que mantiene el orden de los elementos guardados 
     private ArrayList<Tapiceria> tapicerias;
     private ArrayList<Rueda> ruedas;
@@ -27,8 +27,9 @@ public class Almacen
     
     
     /**
-     * nivel 2, 2. Segun el documento de la practica, la gestion de trabajadores , Gestión de trabajadores: 
-     * Dar de alta a los distintos tipos de empleados del sistema con sus datos personales
+     * Nivel 2, b. Gestion de trabajadores: Dar de alta a los distintos tipos de empleados del sistema con
+     *  sus datos personales. 
+     *       
      */
     
     public void addTrabajador(String dni, Trabajador trabajador)
@@ -43,7 +44,7 @@ public class Almacen
     
     public void listarTrabajadores()
     {
-        for (Trabajador t : trabajadores.values()) // aplicando for-each loop a toda la coleccion trabajadores
+        for (Trabajador t : trabajadores.values())
         {
             System.out.println(t.toString());
         }
@@ -53,16 +54,19 @@ public class Almacen
      * Busquedas sencillas de trabajador por dni, nombres y nombres y apellidos
      */
     
-    public Trabajador buscarTrabajadorDni(String dni) // estrategia hacer busqueda directa al hashmap con la clave dni
+    public Trabajador buscarTrabajadorDni(String dni) // estrategia hacer busqueda directa al hashmap con la clave string dni
     {
-        Trabajador t = trabajadores.get(dni); // creamos variable local 't' que recupera al objeto trabajador buscado de la coleccion de trabajadores.
-        // Cuando le pides al mapa (tu HashMap llamado trabajadores) que extraiga la información de un DNI que no existe, 
-        // la propia colección responde directamente entregando un vacío.La variable t nace ya conteniendo el valor nulo desde esa primera línea.
+        Trabajador t = trabajadores.get(dni); // creamos variable local 't' que recupera al objeto trabajador buscado
+        //  de la coleccion de trabajadores. cuando le pidemos al mapa Hashmap trabajadores que extraiga
+        //  la información de un dni que no existe, la propia coleccion responde directamente entregando un vacío.
+        // La variable t nace ya conteniendo el valor nulo.
         
-        if (t != null) {
+        if (t != null) 
+        {
             System.out.println("Trabajador encontrado: " + t);
         }
-        else {
+        else 
+        {
             System.out.println("No se ha encontrado al trabajador con DNI: " + dni);    
         }
         
@@ -72,8 +76,8 @@ public class Almacen
     public void buscarTrabajadorNombres(String nombres) //una de las busquedas sencillas de los empleados sera por los nombres
     {
         // Trabajador t = trabajadores.get(nombre);
-        boolean encontrado = false; // flag variable , valores que se reescriben en eel 
-        for(Trabajador t : trabajadores.values()) // se toma los valores del hashmap trabajadores
+        boolean encontrado = false; // flag variable 
+        for(Trabajador t : trabajadores.values())
         {
             if(t.getNombres().equalsIgnoreCase(nombres)) // getNombres() de metodos de clase Trabajador, donde no tenemos case sensitive 
             {
@@ -82,7 +86,7 @@ public class Almacen
             }
         }
         
-        if (!encontrado) // encontrado = true, entonces el condicionalif (!true) if (false), es decir se salta el print de no encontrado
+        if (!encontrado) // encontrado = true, por tanto pasa a ejecutar la orden del condicional, no significa que el trabajador haya sido encontrado !!
         {
             System.out.println("No se ha encontrado al trabajador con nombres: " + nombres);
         }
@@ -108,7 +112,7 @@ public class Almacen
          }
     }
     
-    /** nivel 2, 1. Ahora implementamos los statements(actions) de los metodos en la Gestión del Almacen :
+    /** nivel 2, a. Ahora implementamos los statements(actions) de los metodos en la Gestion del Almacen :
      * Añadir y actualizar los datos de vehículos a producir en el sistema y todos los componentes asociados: motores, tapicería y ruedas
      */ 
     
@@ -187,7 +191,7 @@ public class Almacen
         return vehiculosFabricados.size();
     }
     
-// impresion consolidad de datos del almacen
+// impresion consolidada de datos del almacen
     public void mostrarInventario() {
         System.out.println("--- Inventario del Almacen ---");
         System.out.println("Trabajadores registrados: " + trabajadores.size());
@@ -197,7 +201,7 @@ public class Almacen
         System.out.println("Vehiculos terminados: " + vehiculosFabricados.size());
     }
 
-    // --- Nivel 3: listados y estadisticas ---
+    // Nivel 3: listados y estadisticas
 
     /**
      * Devuelve una lista de todos los operarios del sistema (eficientes y estandar).
@@ -226,7 +230,7 @@ public class Almacen
     }
 
     /**
-     * Muestra el listado detallado de vehiculos fabricados con sus componentes.
+     * Muestra el listado detallado de vehiculos fabricados ensamblados con sus componentes
      */
     public void listarVehiculosFabricados()
     {
@@ -241,3 +245,14 @@ public class Almacen
         }
     }
 }
+
+/** NIVEL 3 de practica POO
+ * Producir diferentes listados y estadísticas del funcionamiento del sistema:
+o Listado de operarios con opciones de filtrado por productividad y opciones de
+ordenación alfabética.
+o Listado de vehículos ensamblados, con opciones de filtrado por componentes y
+opciones de ordenación alfabética.
+o Listado de configuraciones de vehículos con mayor tasa de ensamblaje.
+o Listado de cadenas de montaje con filtrado de fecha, donde se muestran en esas
+fechas los vehículos producidos con sus componentes
+ */
