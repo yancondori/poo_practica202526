@@ -3,7 +3,7 @@
 **Asignatura:** Programacion Orientada a Objetos (POO)  
 **Curso:** 2025-2026  
 **Autor:** Yan Carlos Condori Tello
-**Nivel implementado:** Nivel 3 (hasta 10 puntos)  
+**Nivel implementado:** Nivel 3  
 **Clase principal:** `factory_main.class`
 
 ---
@@ -36,11 +36,11 @@
 
 <a id="nivel-1"></a>
 
-## 1. Nivel 1 — Planteamiento y diseño (3 puntos)
+## 1. Nivel 1 — Planteamiento y diseño
 
 ### 1.1 Planteamiento del problema
 
-Se modela una fabrica de vehiculos con dos unidades operativas principales:
+En este proyecto se modela una fabrica de vehiculos con dos unidades operativas principales:
 
 1. **Cadena de montaje**: construye los vehiculos ensamblando componentes (chasis, motor, tapiceria, ruedas) a traves de 3 cadenas paralelas, una por tipo de vehiculo.
 2. **Sistema de gestion de fabrica**: gestiona el almacen de datos, los trabajadores, el dashboard de estado y el planificador que coordina las cadenas.
@@ -52,6 +52,8 @@ El sistema permite tres niveles de simulacion:
 
 ### 1.2 Actores participantes y relaciones
 
+A continuación se presentan los actores o trabajadores que interactúan en este sistema:
+
 | Actor | Rol | Clase(s) |
 |-------|-----|----------|
 | Operario eficiente | Controla robots de montaje. >10 montajes, 1 seg/tarea | `OperarioEficiente` |
@@ -61,14 +63,21 @@ El sistema permite tres niveles de simulacion:
 | Mecanico efectivo | Repara cintas. >20 reparaciones, 1 seg/reparacion | `MecanicoEfectivo` |
 | Mecanico estandar | Repara cintas. <=20 reparaciones, 2-5 seg/reparacion (aleatorio) | `MecanicoEstandar` |
 
-**Relaciones entre actores:**
+**Relaciones entre actores y componentes del sistema:**
 
-- El **Planificador** coordina las 3 cadenas de montaje y controla el avance del tiempo (funciona como un reloj: cada segundo ejecuta una accion).
-- Los **Operarios** estan asignados a estaciones dentro de cada cadena (1 operario por estado de montaje: CHASIS, MOTOR, TAPICERIA, RUEDAS).
-- El **GestorPlanta** existe como representacion del rol en el almacen; la logica de monitoreo y coordinacion de mecanicos la ejecuta directamente el Planificador.
-- El **Dashboard** lee datos del Almacen y de las cadenas — nunca los modifica (patron lectura-solo, similar a la Vista en MVC).
-- El **Almacen** es el almacen central de datos, desacoplado del resto del sistema.
-- Los **Mecanicos** y el **AdminSistema** intervienen en las simulaciones Compleja y MuyCompleja (Nivel 3).
+Los actores de la tabla anterior (Operarios, Mecanicos, GestorPlanta, AdminSistema) son todos subclases de `Trabajador` y se almacenan en el `Almacen`. Ademas del personal, el sistema cuenta con tres componentes de gestion que **no son trabajadores** sino clases independientes que coordinan, almacenan o visualizan:
+
+- El **Planificador** (`Planificador.java`) es el proceso coordinador del sistema. Funciona como un reloj: cada segundo ejecuta una accion sobre las 3 cadenas de montaje. Es quien invoca a los mecanicos y al admin cuando se producen averias o caidas de luz.
+- La **CadenaMontaje** (`CadenaMontaje.java`) es la estructura donde se ensambla un vehiculo. Contiene 4 operarios (uno por fase: CHASIS, MOTOR, TAPICERIA, RUEDAS) y avanza estado a estado hasta completar el vehiculo.
+- El **Almacen** (`Almacen.java`)  es el almacen central de datos. Guarda trabajadores (en un HashMap por DNI), componentes (motores, tapicerias, ruedas) y vehiculos fabricados. No conoce al resto del sistema — otros lo usan a el.
+- El **Dashboard** (`Dashboard.java`)  es la vista del sistema. Lee datos del Almacen y de las cadenas pero nunca los modifica (patron lectura-solo, similar a la Vista en MVC).
+
+En cuanto a los trabajadores y su participacion en la simulacion:
+
+- Los **Operarios** (subclases de `Trabajador`) estan asignados a estaciones dentro de cada cadena. Su tipo (eficiente o estandar) determina el tiempo de cada fase via polimorfismo (`getTiempoTarea()`). Participan en los 3 niveles de simulacion.
+- Los **Mecanicos** (subclases de `Trabajador` via `MecanicoCinta`) intervienen en las simulaciones Compleja y MuyCompleja (Nivel 3). Su tipo determina el tiempo de reparacion via polimorfismo (`getTiempoReparacion()`).
+- El **AdminSistema** (subclase de `Trabajador`) interviene solo en la simulacion MuyCompleja para restaurar el sistema tras una caida de luz (2s gestion + 3s cadenas).
+- El **GestorPlanta** (subclase de `Trabajador`) existe como representacion del rol en el almacen; no requiere logica activa porque el Planificador gestiona directamente el monitoreo y la coordinacion de mecanicos.
 
 ### 1.3 Diagrama de clases
 
@@ -78,9 +87,9 @@ El diagrama de clases completo (cubre los 3 niveles del enunciado) se encuentra 
 
 Este diagrama fue generado desde BlueJ y muestra todas las clases con sus relaciones de herencia (flechas solidas) y dependencias de uso (flechas punteadas).
 
-*Nota: segun la recomendacion del tutor (sesion 6), si el diagrama BlueJ resulta dificil de leer por la cantidad de lineas punteadas, se puede complementar con un diagrama hecho en draw.io o Visio que agrupe las clases por paquetes logicos (ver seccion 1.5).*
-
 ### 1.4 Jerarquias de herencia
+
+Se presentaran las jerarquías de cada clase usada en el proyecto:
 
 #### 1.4.1 Jerarquia de Trabajadores
 
@@ -291,7 +300,7 @@ Leyenda:
 
 <a id="nivel-2"></a>
 
-## 2. Nivel 2 — Implementacion (hasta 7 puntos)
+## 2. Nivel 2 — Implementacion
 
 ### 2.1 Gestion de almacen
 
@@ -372,7 +381,7 @@ Implementado en `factory_main.menuPrincipal()` con `Scanner` y un `switch`:
 
 <a id="nivel-3"></a>
 
-## 3. Nivel 3 — Implementacion (hasta 10 puntos)
+## 3. Nivel 3 — Implementacion
 
 ### 3.1 Simulacion Compleja — `ejecutarCompleja()`
 
