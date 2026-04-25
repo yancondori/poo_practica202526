@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=OperarioEstandar
-comment0.text=\n\ Write\ a\ description\ of\ class\ Estandar\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Operario\ estandar\:\ ha\ realizado\ 10\ o\ menos\ montajes\ de\ piezas.\n\ Necesita\ el\ triple\ de\ tiempo\ que\ el\ eficiente\:\ 3\ segundos\ por\ tarea.\n\n\ @author\ Yan\ Condori\n
 comment1.params=nombres\ apellidos\ dni\ direccion\ numSegSec\ puesto\ salario\ fechaIngreso\ montajesPieza
 comment1.target=OperarioEstandar(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ int)
 comment2.params=

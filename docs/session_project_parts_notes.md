@@ -424,3 +424,214 @@ Cadena 3: ...
 ### Resumen
 
 No es que el índice manual sea más eficiente en velocidad — `ArrayList.get(i)` es O(1), igual de rápido que el for-each. Es eficiente en **legibilidad y propósito**: cuando el número de cadena forma parte del output, el `for` clásico con `i` es la herramienta correcta porque te da esa información de posición gratis, sin código extra.
+
+---
+
+## ¿Por qué `Trabajador` es `abstract` y los gestores (`Almacen`, `Dashboard`, `Planificador`) no?
+
+### Por qué `Trabajador` es `abstract`
+
+Nunca necesitas un "trabajador genérico" — siempre es un tipo concreto: un `OperarioEstandar`, un `GestorPlanta`, un `AdminSistema`. `Trabajador` existe solo para agrupar campos y comportamiento común. Si no fuera `abstract`, nadie te impediría escribir:
+
+```java
+new Trabajador("Juan", ...)  // ← no tiene sentido, ¿qué tipo de trabajador es?
+```
+
+`abstract` cierra esa puerta: **obliga a que todo trabajador sea un tipo concreto**.
+
+### Por qué `Almacen`, `Dashboard`, `Planificador` NO son `abstract`
+
+Estas clases son **componentes únicos del sistema** — tienen un propósito completo por sí solos y se instancian directamente:
+
+```java
+Almacen almacen       = new Almacen();
+Dashboard dashboard   = new Dashboard(almacen, cadenas);
+Planificador plan     = new Planificador(...);
+```
+
+No hay una jerarquía de tipos de `Almacen` — no existe `AlmacenEficiente` ni `AlmacenEstandar`. Son clases finales en su diseño: una sola implementación, una sola instancia. Hacerlas `abstract` sin subclases no tendría ningún sentido.
+
+### La regla de decisión
+
+```
+¿Tiene sentido crear un objeto directamente de esta clase?
+  └─ SÍ → clase concreta (Almacen, Dashboard, Planificador)
+  └─ NO, siempre será algo más específico → abstract (Trabajador, Vehiculo, Motor)
+```
+
+`abstract` no es una distinción de importancia o complejidad — es una restricción de **instanciación**. `Trabajador` la necesita porque es la raíz de una jerarquía polimórfica. Los gestores no la necesitan porque son el producto final, no una base para especializarse.
+
+---
+
+## Reglas para leer diagramas de clase en BlueJ
+
+### Las flechas y su significado
+
+| Flecha | Tipo | Significa en código |
+|---|---|---|
+| `——▷` sólida + triángulo hueco | **Herencia** | `extends` — relación is-a |
+| `- - ▶` punteada + flecha | **Dependencia** | `new` o llamada a método externo |
+
+### Cómo leer una flecha punteada
+
+**La dirección lo dice todo:**
+
+```
+factory_main  - - ▶  Dashboard     →  factory_main crea Dashboard con new
+Planificador  - - ▶  Dashboard     →  Planificador llama métodos de Dashboard
+```
+
+- El que **envía** la flecha = el Caller (depende del otro)
+- El que **recibe** la flecha = el usado (no sabe quién lo llama)
+
+### Reglas de diseño que el diagrama revela
+
+**1. Flechas que entran pero no salen = bajo acoplamiento (loose coupling)**
+`Dashboard` recibe 2 flechas pero no envía ninguna. Es ciego a quién lo usa — si cambias `Planificador`, `Dashboard` no se rompe.
+
+**2. Delegación = buena cohesión**
+`Planificador` no imprime nada él mismo. Llama a `dashboard.mostrarEstado()` y delega. Cada clase tiene una sola responsabilidad.
+
+**3. Quien usa `new` tiene la flecha saliente**
+`factory_main` crea todo el sistema → tiene muchas flechas salientes. Es el punto de entrada, no el motor.
+
+### Regla rápida de diagnóstico
+
+```
+¿Una clase tiene muchas flechas SALIENTES?  →  es un coordinador/creador
+¿Una clase tiene muchas flechas ENTRANTES?  →  es un servicio muy usado
+¿Una clase no tiene flechas salientes?      →  bien aislada, fácil de cambiar
+```
+
+---
+
+## Variable independiente vs dependiente — analogía con f(x)
+
+### La analogía correcta con funciones
+
+```
+f(x)  →  f es quien DEPENDE de x, no al revés
+```
+
+- `x` = variable independiente = **no depende de nada** = `Dashboard`
+- `f` = función = **depende de x para operar** = `Planificador`, `factory_main`
+
+`Dashboard` es la variable independiente **precisamente porque nadie lo afecta** — él no llama a nadie, no depende de nadie. Es estable, autónomo.
+
+### Por qué la intuición se puede confundir
+
+Asociar "independiente" con "libre, activo, el que actúa" es un desvío natural. Pero en matemáticas `x` es pasivo — no cambia porque `f(x)` lo llame. Igual que `Dashboard` no cambia porque `Planificador` lo llame.
+
+```
+x no cambia porque f(x) lo llame   →   Dashboard no cambia porque Planificador lo llame
+```
+
+### Regla para recordarlo
+
+> **El que tiene flechas salientes es el dependiente** (necesita al otro para funcionar).
+> **El que recibe flechas es el independiente** (funciona igual sin importar quién lo llame).
+
+`x` es pasivo pero independiente. `f` es activa pero dependiente de `x`.
+
+---
+
+## Dependencia: declaración de campo vs uso real — `Planificador.java:12`
+
+### ¿La declaración sola crea dependencia?
+
+```java
+private Dashboard dashboard;  // solo declaración, sin usar nunca
+```
+
+**Sí — BlueJ dibuja la flecha punteada igual.** El compilador ve que `Planificador` menciona el tipo `Dashboard` en su código fuente. Eso es suficiente para que exista la dependencia estática.
+
+### Lo importante es el **tipo**, no el nombre del campo
+
+```java
+private Dashboard dashboard;
+//       ↑ ESTE es el tipo que BlueJ detecta
+```
+
+Si cambiaras el tipo:
+
+```java
+private Prueba dashboard;   // BlueJ dibuja flecha hacia Prueba, no hacia Dashboard
+private Object dashboard;   // flecha hacia Object (clase raíz de Java)
+```
+
+El nombre `dashboard` es irrelevante para el diagrama — podría llamarse `x`, `foo`, `miCosa`. Lo que genera la flecha es el **tipo estático declarado**.
+
+### Dos niveles de dependencia
+
+| Nivel | ¿Qué detecta? | ¿Cuándo existe? |
+|---|---|---|
+| **Estático** (diagrama) | El tipo en la declaración | Siempre que el tipo aparezca en el código |
+| **Dinámico** (ejecución) | Llamadas reales a métodos | Solo cuando se llama `dashboard.metodo()` |
+
+En `Planificador` existen los dos niveles — declara el tipo **y** llama `mostrarConsolidado()` — así que la dependencia es real estática y dinámicamente.
+
+---
+
+## Dependencias de `Planificador` — flujo dinámico y tipos abstractos en el diagrama
+
+### Todas las dependencias reales en el código
+
+| Tipo usado | Dónde aparece | Nivel |
+|---|---|---|
+| `CadenaMontaje` | campo + `new` línea 22-24 | ambos |
+| `Almacen` | campo línea 11 | ambos |
+| `Dashboard` | campo línea 12 | ambos |
+| `Vehiculo` | parámetro línea 36 | estático |
+| `Operario` | parámetro línea 36 | estático |
+| `MecanicoEfectivo` | parámetro línea 98 | estático |
+| `MecanicoEstandar` | parámetros líneas 98, 206 | estático |
+| `AdminSistema` | parámetro línea 206 | estático |
+
+### Por qué el diagrama muestra `Operario` y `Vehiculo` (abstractos) y NO `MecanicoEfectivo`/`MecanicoEstandar`
+
+`Operario` y `Vehiculo` aparecen en el método `configurarCadenas()` — BlueJ los detecta y dibuja la flecha:
+
+```java
+// línea 36
+public void configurarCadenas(int indice, Vehiculo vehiculo, ArrayList<Operario> operarios)
+```
+
+`MecanicoEfectivo` y `MecanicoEstandar` también aparecen como parámetros:
+
+```java
+// línea 98
+public void ejecutarCompleja(MecanicoEfectivo mecEfectivo, MecanicoEstandar mecEstandar)
+```
+
+Si el diagrama no muestra esas flechas, hay dos causas posibles:
+1. **BlueJ no ha recompilado** — el diagrama está desactualizado. BlueJ actualiza las flechas solo al compilar.
+2. **BlueJ colapsó la flecha hacia el padre** — si ya existe una flecha hacia `MecanicoCinta` (padre abstracto), BlueJ puede omitir la flecha hacia las subclases concretas.
+
+### El flujo dinámico tick a tick
+
+```
+factory_main
+  └── new Planificador(almacen, dashboard)
+        ├── ejecutarSimple()
+        │     └── cada segundo:
+        │           cadena.avanzarTiempo()            → CadenaMontaje actúa
+        │           almacen.addVehiculo(...)           → Almacen guarda resultado
+        │           dashboard.mostrarConsolidado()     → Dashboard imprime estado
+        │
+        ├── ejecutarCompleja(mecEfectivo, mecEstandar)
+        │     └── cada segundo:
+        │           cadena.provocarAveria()
+        │           mecEfectivo/mecEstandar.getTiempoReparacion()
+        │           cadena.iniciarReparacion(...)
+        │           dashboard.mostrarConsolidado()
+        │
+        └── ejecutarMuyCompleja(mecEstandar, admin)
+              └── cada segundo:
+                    admin.getTiempoRestaurarGestion()  → caída de luz
+                    cadena.provocarAveria()
+                    dashboard.mostrarConsolidado()
+```
+
+### Regla clave
+
+> **BlueJ dibuja la flecha hacia el tipo escrito en el código fuente.** Si el tipo es abstracto (`Operario`, `Vehiculo`), la flecha apunta al abstracto. Si es concreto (`MecanicoEstandar`), debería apuntar al concreto — si no aparece, el diagrama está desactualizado o BlueJ lo colapsó hacia el padre de la jerarquía.

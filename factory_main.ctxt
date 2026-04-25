@@ -1,14 +1,20 @@
 #BlueJ class context
 comment0.target=factory_main
-comment0.text=\n\n\ Esta\ es\ la\ clase\ principal\ de\ la\ aplicacion\n
+comment0.text=\n\ Clase\ principal\ de\ la\ aplicacion\ \u2014\ Sistema\ de\ Gestion\ de\ Fabrica\ de\ Vehiculos.\n\ Punto\ de\ entrada\:\ main().\ Contiene\ el\ menu\ textual\ para\ interactuar\ con\ el\ sistema.\n\n\ Orden\ de\ inicializacion\ (para\ resolver\ la\ referencia\ circular)\:\n\ 1.\ Almacen\ (sin\ dependencias)\n\ 2.\ Planificador\ (recibe\ Almacen,\ dashboard\=null)\n\ 3.\ Dashboard\ (recibe\ Almacen\ +\ cadenas\ del\ Planificador)\n\ 4.\ planificador.setDashboard(dashboard)\ \u2014\ cierra\ el\ ciclo\n\n\ @author\ Yan\ Condori\n
 comment1.params=
 comment1.target=factory_main()
 comment2.params=
 comment2.target=void\ cargarDatosEjemplo()
-comment2.text=\n\ Carga\ datos\ de\ ejemplo\ para\ probar\ el\ sistema\n
+comment2.text=\n\ Carga\ datos\ de\ ejemplo\ para\ probar\ el\ sistema.\n\ Incluye\ operarios,\ mecanicos,\ admin,\ componentes\ y\ vehiculos\ para\ las\ 3\ cadenas.\n
 comment3.params=
 comment3.target=void\ menuPrincipal()
-comment3.text=\n\ Menu\ textual\ para\ Level\ 3\n
-comment4.params=args
-comment4.target=void\ main(java.lang.String[])
-numComments=5
+comment3.text=\n\ Menu\ textual\ principal\ \u2014\ interfaz\ de\ Nivel\ 3.\n
+comment4.params=scanner
+comment4.target=void\ ejecutarCompleja(java.util.Scanner)
+comment4.text=\n\ Busca\ un\ MecanicoEfectivo\ y\ un\ MecanicoEstandar\ en\ el\ almacen\n\ y\ lanza\ la\ simulacion\ Compleja.\ Si\ no\ existen,\ avisa\ al\ usuario.\n
+comment5.params=scanner
+comment5.target=void\ ejecutarMuyCompleja(java.util.Scanner)
+comment5.text=\n\ Busca\ un\ MecanicoEstandar\ y\ un\ AdminSistema\ en\ el\ almacen\n\ y\ lanza\ la\ simulacion\ Muy\ Compleja.\ Si\ no\ existen,\ avisa\ al\ usuario.\n
+comment6.params=args
+comment6.target=void\ main(java.lang.String[])
+numComments=7

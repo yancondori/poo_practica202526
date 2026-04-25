@@ -9,7 +9,7 @@
  *
  * @author Yan Condori
  */
-public abstract class Operario extends Trabajador // abstract como padre que fuerza a sus hijos  
+public abstract class Operario extends Trabajador // abstract como padre 'generico-plantilla' que fuerza a sus hijos  
                                                     // a tener su propio comportamiento, estos
                                                     // hijos realizan la herencia, y concretan su comportamiento
 {
