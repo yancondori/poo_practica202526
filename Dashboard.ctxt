@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Dashboard
-comment0.text=\r\n\ Cuadro\ de\ mandos\ que\ muestra\ el\ estado\ de\ las\ cadenas\ de\ montaje\r\n\ y\ el\ balance\ de\ componentes\ en\ el\ almacen.\r\n\ Dise\u00F1o\ desacoplado\:\ Dashboard\ lee\ datos\ de\ Almacen\ y\ de\ las\ cadenas\ de\ montaje\r\n\ pero\ no\ modifica\ nada\ \u2014\ solo\ visualiza.\r\n
+comment0.text=\n\ El\ Dashboard\ muestra\ el\ estado\ de\ las\ cadenas\ de\ montaje\n\ y\ el\ balance\ de\ componentes\ en\ el\ almacen.\n\ Dise\u00F1o\ desacoplado\:\ Dashboard\ lee\ datos\ de\ Almacen\ y\ de\ las\ cadenas\ de\ montaje\n\ ambos\ campos\ vienen\ de\ cuando\ factory_main\ crea\ Dashboard\n\ ambos\ campos\ no\ modifican\ nada\ (solo\ se\ visualizan)\n
 comment1.params=almacen\ cadenas
 comment1.target=Dashboard(Almacen,\ java.util.ArrayList)
 comment2.params=
@@ -9,4 +9,16 @@ comment3.params=
 comment3.target=void\ mostrarStockAlmacen()
 comment4.params=
 comment4.target=void\ mostrarConsolidado()
-numComments=5
+comment5.params=
+comment5.target=void\ listarOperariosPorProductividad()
+comment5.text=\n\ Listado\ de\ operarios\ ordenados\ por\ productividad\ (montajes,\ de\ mayor\ a\ menor)\n\ Usa\ ordenacion\ burbuja\ o\ "a\ pares"\ para\ no\ depender\ de\ Collections.sort()\n
+comment6.params=
+comment6.target=void\ listarOperariosAlfabetico()
+comment6.text=\n\ Listado\ de\ operarios\ ordenados\ alfabeticamente\ por\ apellidos\n
+comment7.params=
+comment7.target=void\ listarVehiculosFabricados()
+comment7.text=\n\ Listado\ de\ vehiculos\ fabricados\ con\ detalle\ de\ componentes\n
+comment8.params=
+comment8.target=void\ mostrarEstadoCadenasDetallado()
+comment8.text=\n\ Muestra\ el\ estado\ de\ cada\ cadena\ incluyendo\ averias\ (Nivel\ 3)\n
+numComments=9

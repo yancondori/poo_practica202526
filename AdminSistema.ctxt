@@ -1,8 +1,12 @@
 #BlueJ class context
 comment0.target=AdminSistema
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ AdminSistema\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Administrador\ del\ sistema\:\ vela\ por\ el\ correcto\ funcionamiento\ del\ software.\n\ Ante\ un\ apagon,\ restaura\ el\ sistema\ de\ gestion\ (2\ seg)\ y\ las\ cadenas\ de\ montaje\ (3\ seg).\n\n\ Nivel\ 3\ IMPLEMENTADO\:\ getTiempoRestaurarGestion()\ y\ getTiempoRestaurarCadenas()\ son\ llamados\n\ directamente\ por\ Planificador.ejecutarMuyCompleja()\ para\ gestionar\ la\ caida\ de\ luz.\n\n\ @author\ Yan\ Condori\n
 comment1.params=nombres\ apellidos\ dni\ direccion\ numSegSec\ puesto\ salario\ fechaIngreso
 comment1.target=AdminSistema(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String)
 comment2.params=
-comment2.target=java.lang.String\ toString()
-numComments=3
+comment2.target=int\ getTiempoRestaurarGestion()
+comment3.params=
+comment3.target=int\ getTiempoRestaurarCadenas()
+comment4.params=
+comment4.target=java.lang.String\ toString()
+numComments=5

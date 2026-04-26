@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Vehiculo
-comment0.text=\n\ Write\ a\ description\ of\ class\ Vehiculo\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Clase\ abstracta\ que\ es\ raiz\ de\ la\ jerarquia\ de\ vehiculos.\n\ Almacena\ los\ atributos\ comunes\ a\ todos\ los\ tipos\ (color,\ numPlaza,\ tara,\ pesoMax)\n\ y\ las\ referencias\ a\ sus\ componentes\ (Motor,\ Tapiceria,\ Rueda).\n\ Subclases\ concretas\:\ BiplazaDeportivo,\ Turismo,\ Furgoneta.\n\n\ Supuesto\:\ cada\ vehiculo\ tiene\ un\ objeto\ Rueda\ que\ representa\ el\ modelo/tipo\ de\ neumatico,\n\ no\ las\ 4\ ruedas\ fisicas\ individuales\ (para\ simplificacion\ de\ dise\u00F1o).\n\n\ @author\ Yan\ Condori\n
 comment1.params=color\ numPlaza\ tara\ pesoMax\ motor\ tapiceria\ rueda
 comment1.target=Vehiculo(java.lang.String,\ int,\ double,\ double,\ Motor,\ Tapiceria,\ Rueda)
 comment10.params=

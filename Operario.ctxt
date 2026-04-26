@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Operario
-comment0.text=\n\ Clase\ abstracta\ intermedia\ para\ los\ operarios\ de\ la\ cadena\ de\ montaje.\n\ A\u00F1ade\ el\ campo\ montajesPieza\ (experiencia)\ y\ el\ metodo\ abstracto\ getTiempoTarea()\n\ que\ cada\ subclase\ concreta\ (OperarioEficiente,\ OperarioEstandar)\ implementa\n\ con\ tiempos\ distintos\ \u2014\ esto\ es\ polimorfismo.\n\n\ Segun\ enunciado\:\ eficiente\ (>10\ montajes)\ \=\ 1\ seg,\ estandar\ (<\=10)\ \=\ 3\ seg.\n\n\ @author\ Yan\ Condori\n
+comment0.text=\n\ Clase\ abstracta\ intermedia\ para\ los\ operarios\ de\ la\ cadena\ de\ montaje.\n\ A\u00F1ade\ el\ campo\ montajesPieza\ (experiencia)\ y\ el\ metodo\ abstracto\ getTiempoTarea()\n\ que\ luego\ cada\ subclase\ concreta\ (OperarioEficiente,\ OperarioEstandar)\ implementa\n\ con\ tiempos\ distintos\ (es\ decir\ generamos,\ \ polimorfismo)\n\n\ Segun\ enunciado\:\ eficiente\ (>10\ montajes)\ \=\ 1\ seg,\ estandar\ (<\=10)\ \=\ 3\ seg.\n\n\ @author\ Yan\ Condori\n
 comment1.params=nombres\ apellidos\ dni\ direccion\ numSegSec\ puesto\ salario\ fechaIngreso\ montajesPieza
 comment1.target=Operario(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ int)
 comment2.params=

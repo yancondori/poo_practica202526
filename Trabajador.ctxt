@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Trabajador
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Trabajador\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ clase\ abstracta\ -\ generiaca\ que\ es\ la\ raiz\ de\ la\ jerarquia\ de\ trabajadores\ de\ la\ fabrica\n\ Almacena\ los\ datos\ personales\ comunes\ a\ todos\ los\ perfiles\:\n\ nombres,\ apellidos,\ DI,\ direccion,\ numSegSoc,\ puesto,\ salario,\ fechaIngreso.\n\n\ Supuesto\:\ las\ fechas\ se\ almacenan\ como\ String\ (decision\ del\ curso,\ no\ se\ usa\ Date/LocalDateTime).\n\n\ Subclases\ directas\:\ Operario,\ MecanicoCinta,\ GestorPlanta,\ AdminSistema.\n\n\ @author\ Yan\ Condori\n
 comment1.params=nombres\ apellidos\ dni\ direccion\ numSegSoc\ puesto\ salario\ fechaIngreso
 comment1.target=Trabajador(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String)
 comment10.params=

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Motor
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Motor\ here.\r\n\r\n\ @author\ Yan\ Condori\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Clase\ abstracta\ raiz\ de\ la\ jerarquia\ de\ motores.\n\ Solo\ contiene\ potencia\ como\ atributo\ comun\ a\ todos\ los\ motores.\n\n\ Supuesto\ de\ dise\u00F1o\:\ cilindrada\ y\ numCilindros\ solo\ se\ aplican\ a\ motores\ de\ combustion,\n\ (no\ se\ aplica\ a\ motor\ electrico)\ por\ eso\ se\ ubican\ en\ la\ subclase\ MotorCombustion\ \n\ y\ no\ en\ esta\ raiz\ Motor\ .\n\ MotorElectrico\ hereda\ directamente\ de\ Motor\ (solo\ potencia).\n\n\ @author\ Yan\ Condori\n
 comment1.params=potencia
 comment1.target=Motor(double)
 comment2.params=

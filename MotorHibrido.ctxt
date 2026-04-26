@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=MotorHibrido
-comment0.text=\n\ Write\ a\ description\ of\ class\ MotorHibrido\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Motor\ hibrido.\ Hereda\ potencia,\ cilindrada\ y\ numCilindros\ de\ MotorCombustion.\n\n\ @author\ Yan\ Condori\n
 comment1.params=potencia\ cilindrada\ numCilindros
 comment1.target=MotorHibrido(double,\ double,\ int)
 comment2.params=

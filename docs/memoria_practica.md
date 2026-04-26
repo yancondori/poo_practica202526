@@ -10,19 +10,19 @@
 
 ## Indice
 
-1. [Nivel 1 — Planteamiento y diseño (3 puntos)](#nivel-1)
+1. [Nivel 1 — Planteamiento y diseño](#nivel-1)
    - 1.1 Planteamiento del problema
    - 1.2 Actores participantes y relaciones
    - 1.3 Diagrama de clases
    - 1.4 Jerarquias de herencia
    - 1.5 Logica y dependencias entre clases
-2. [Nivel 2 — Implementacion (hasta 7 puntos)](#nivel-2)
+2. [Nivel 2 — Implementacion](#nivel-2)
    - 2.1 Gestion de almacen
    - 2.2 Gestion de trabajadores
    - 2.3 Simulacion Simple (Planificador)
    - 2.4 Consultas y stock
    - 2.5 Menu textual
-3. [Nivel 3 — Implementacion (hasta 10 puntos)](#nivel-3)
+3. [Nivel 3 — Implementacion](#nivel-3)
    - 3.1 Simulacion Compleja
    - 3.2 Simulacion Muy Compleja
    - 3.3 Dashboard — listados y estadisticas
@@ -72,7 +72,7 @@ Los actores de la tabla anterior (Operarios, Mecanicos, GestorPlanta, AdminSiste
 - El **Almacen** (`Almacen.java`)  es el almacen central de datos. Guarda trabajadores (en un HashMap por DNI), componentes (motores, tapicerias, ruedas) y vehiculos fabricados. No conoce al resto del sistema — otros lo usan a el.
 - El **Dashboard** (`Dashboard.java`)  es la vista del sistema. Lee datos del Almacen y de las cadenas pero nunca los modifica (patron lectura-solo, similar a la Vista en MVC).
 
-En cuanto a los trabajadores y su participacion en la simulacion:
+En cuanto a los trabajadores y su participacion en la simulacion, se plantea de la siguiente manera:
 
 - Los **Operarios** (subclases de `Trabajador`) estan asignados a estaciones dentro de cada cadena. Su tipo (eficiente o estandar) determina el tiempo de cada fase via polimorfismo (`getTiempoTarea()`). Participan en los 3 niveles de simulacion.
 - Los **Mecanicos** (subclases de `Trabajador` via `MecanicoCinta`) intervienen en las simulaciones Compleja y MuyCompleja (Nivel 3). Su tipo determina el tiempo de reparacion via polimorfismo (`getTiempoReparacion()`).
@@ -89,38 +89,42 @@ Este diagrama fue generado desde BlueJ y muestra todas las clases con sus relaci
 
 ### 1.4 Jerarquias de herencia
 
-Se presentaran las jerarquías de cada clase usada en el proyecto:
+En esta seccion, se presentan las jerarquías de cada clase usada en el proyecto:
 
 #### 1.4.1 Jerarquia de Trabajadores
 
+Esta es la jerarquia mas extensa del proyecto. `Trabajador` es la clase abstracta que centraliza los datos personales comunes a todo el personal (nombres, DNI, salario, etc.). A partir de ella se ramifican cuatro perfiles: `Operario` y `MecanicoCinta` son tambien abstractos e introducen cada uno un metodo polimorfico (`getTiempoTarea()` y `getTiempoReparacion()` respectivamente), cuya implementacion concreta varia segun el subtipo. `GestorPlanta` y `AdminSistema` son directamente concretos porque no necesitan especializacion adicional.
+
 ```
-Trabajador (abstract)
+Trabajador (abstract)              <-- datos personales: nombres, dni, salario, fechaIngreso...
   |-- Operario (abstract)          <-- anade: montajesPieza, getTiempoTarea() [abstracto]
-  |     |-- OperarioEficiente      <-- getTiempoTarea() = 1
-  |     |-- OperarioEstandar       <-- getTiempoTarea() = 3
+  |     |-- OperarioEficiente      <-- getTiempoTarea() = 1  (>10 montajes)
+  |     |-- OperarioEstandar       <-- getTiempoTarea() = 3  (<=10 montajes)
   |
   |-- MecanicoCinta (abstract)     <-- anade: numReparaciones, getTiempoReparacion() [abstracto]
-  |     |-- MecanicoEfectivo       <-- getTiempoReparacion() = 1
-  |     |-- MecanicoEstandar       <-- getTiempoReparacion() = aleatorio 2-5
+  |     |-- MecanicoEfectivo       <-- getTiempoReparacion() = 1  (>20 reparaciones)
+  |     |-- MecanicoEstandar       <-- getTiempoReparacion() = aleatorio 2-5  (<=20 reparaciones)
   |
-  |-- GestorPlanta                 <-- sin campos adicionales, rol representacional
+  |-- GestorPlanta                 <-- sin campos adicionales, rol representacional en almacen
   |-- AdminSistema                 <-- getTiempoRestaurarGestion()=2, getTiempoRestaurarCadenas()=3
 ```
 
-**Polimorfismo clave:** `getTiempoTarea()` se declara como `abstract` en `Operario`. Cada subclase lo implementa con su propio valor. Cuando `CadenaMontaje` llama a `getOperarioActual().getTiempoTarea()`, Java resuelve en tiempo de ejecucion que version ejecutar segun el tipo real del objeto (enlace dinamico). Lo mismo ocurre con `getTiempoReparacion()` en la rama de mecanicos.
+`getTiempoTarea()` se declara `abstract` en `Operario` y cada subclase lo implementa con su propio valor — esto es polimorfismo. Cuando `CadenaMontaje` llama a `getOperarioActual().getTiempoTarea()`, Java resuelve en tiempo de ejecucion que version ejecutar segun el tipo real del objeto (enlace dinamico). El mismo patron se repite con `getTiempoReparacion()` en la rama de mecanicos.
 
 #### 1.4.2 Jerarquia de Vehiculos
 
+En esta subseccion se muestra la relacion jerarquica de la clase abstracta `Vehiculo` con sus tres subclases concretas, cada una representando un tipo de vehiculo que puede fabricarse en la planta. `Vehiculo` centraliza todos los atributos comunes: datos fisicos del coche y referencias a sus tres componentes ensamblables (motor, tapiceria, rueda). Las subclases no añaden campos propios; su funcion es identificar el tipo de vehiculo en el sistema y disponer de un `toString()` diferenciado, lo que permite distinguirlos en el dashboard y en el almacen sin duplicar logica.
+
 ```
 Vehiculo (abstract)                <-- color, numPlaza, tara, pesoMax, motor, tapiceria, rueda
-  |-- BiplazaDeportivo
-  |-- Turismo
-  |-- Furgoneta
+  |-- BiplazaDeportivo             <-- identifica tipo, toString() propio
+  |-- Turismo                      <-- identifica tipo, toString() propio
+  |-- Furgoneta                    <-- identifica tipo, toString() propio
 ```
 
-Las subclases no anaden campos propios; su funcion es identificar el tipo de vehiculo en el sistema y disponer de un `toString()` diferenciado.
-
 #### 1.4.3 Jerarquia de Motores
+
+En esta subseccion se muestra la jerarquia de motores. A diferencia de las otras jerarquias, introduce un nivel intermedio (`MotorCombustion`) para separar los atributos exclusivos de los motores de combustion de los que no aplican a los motores electricos.
 
 ```
 Motor (abstract)                   <-- potencia
@@ -130,9 +134,11 @@ Motor (abstract)                   <-- potencia
   |-- MotorElectrico               <-- hereda solo potencia (sin cilindrada ni cilindros)
 ```
 
-**Nota de diseno:** `cilindrada` y `numCilindros` se ubican en `MotorCombustion` (no en `Motor`) porque un motor electrico no tiene cilindros. Esto evita que `MotorElectrico` herede campos irrelevantes.
+Cabe senalar que `cilindrada` y `numCilindros` se ubican en `MotorCombustion` (no en `Motor`) porque un motor electrico no tiene cilindros. Esto evita que `MotorElectrico` herede campos irrelevantes.
 
 #### 1.4.4 Jerarquia de Tapicerias
+
+En esta subseccion se muestra la relacion jerarquica de `Tapiceria`. Las tres subclases representan los materiales de tapizado disponibles en la fabrica; todas comparten los mismos campos heredados del abstracto.
 
 ```
 Tapiceria (abstract)               <-- color, metrosCuadrados
@@ -142,6 +148,8 @@ Tapiceria (abstract)               <-- color, metrosCuadrados
 ```
 
 #### 1.4.5 Jerarquia de Ruedas
+
+En esta subseccion se muestra la relacion jerarquica de `Rueda`. Cada subclase representa un tipo de neumatico montable en el vehiculo; todas heredan los mismos atributos tecnicos del abstracto sin añadir campos propios.
 
 ```
 Rueda (abstract)                   <-- ancho(mm), diametro(pulgadas), carga(kg), codigo(km/h)
@@ -166,9 +174,9 @@ factory_main
   |-- INYECTA --> Planificador.setDashboard(dashboard)   (paso 4: cierra referencia circular)
 ```
 
-**Dependencias directas:** `Almacen`, `Planificador`, `Dashboard`, y transitivamente todas las clases que estos usan (`CadenaMontaje`, `Vehiculo`, `Operario`, `Motor`, `Tapiceria`, `Rueda`).
+Ademas, la clase `factory_main` cuenta con las siguientes dependencias directas: `Almacen`, `Planificador`, `Dashboard`, y transitivamente todas las clases que estos usan (`CadenaMontaje`, `Vehiculo`, `Operario`, `Motor`, `Tapiceria`, `Rueda`).
 
-**Por que este orden importa:** Planificador necesita Dashboard para mostrar el estado tras cada tick, pero Dashboard necesita las cadenas del Planificador para leerlas. Se rompe el circulo creando Planificador con `dashboard=null` y luego inyectandolo con `setDashboard()`.
+Resaltamos que el orden de instanciacion, si importa, como muestra el diagrama de clase de la Figura 1,   la clase Planificador necesita Dashboard para mostrar el estado tras cada tick - avance de segundo, pero Dashboard necesita las cadenas del Planificador para leerlas. Se rompe el circulo creando Planificador con `dashboard=null` y luego inyectandolo con `setDashboard()`.
 
 #### 1.5.2 Paquete de datos: `Almacen`
 
@@ -183,18 +191,18 @@ Almacen
   |-- CONTIENE --> ArrayList<Vehiculo>             (vehiculos fabricados)
 ```
 
-**Quien lo usa:**
+En este sentido, las clases que usan o llaman a la clase Almacen son las siguientes:
 - `factory_main` lo crea y lo pasa como parametro a `Planificador` y `Dashboard`.
 - `Planificador` lo usa para guardar vehiculos terminados (`addVehiculosFabricados()`).
 - `Dashboard` lo usa para leer el stock (getters de tamanio).
 
-**Desacoplamiento:** si se cambiara la estructura interna (por ejemplo, reemplazar HashMap por TreeMap, o ArrayList por LinkedList), ningun otro componente se veria afectado, ya que solo se accede a Almacen a traves de sus metodos publicos.
+Segun lo anterior podemos notar la presencia del **Desacoplamiento** ya que  si se cambiara la estructura interna (por ejemplo, reemplazar HashMap por TreeMap, o ArrayList por LinkedList), ningun otro componente se veria afectado, ya que solo se accede a Almacen a traves de sus metodos publicos.
 
 #### 1.5.3 Paquete de simulacion: `Planificador` + `CadenaMontaje` + `EstadoMontaje`
 
-Este es el nucleo de la logica de simulacion.
+Este paquete constituye el nucleo de la logica de simulacion. `Planificador` actua como el reloj del sistema; `CadenaMontaje` encapsula el ensamblaje de un vehiculo fase a fase; y `EstadoMontaje` es el enum que define y ordena esas fases. Los tres trabajan juntos en cada tick de simulacion.
 
-**Planificador** actua como un reloj:
+Asi, el **Planificador** actua como un reloj:
 
 ```
 Planificador
@@ -211,7 +219,7 @@ Planificador
   |       dashboard.mostrarConsolidado()
 ```
 
-**CadenaMontaje** contiene la logica de ensamblaje de un vehiculo:
+En tanto, **CadenaMontaje** contiene la logica de ensamblaje de un vehiculo:
 
 ```
 CadenaMontaje
@@ -231,7 +239,7 @@ CadenaMontaje
   |         RUEDAS  --> vehiculo completo, funcionando=false, return true
 ```
 
-**EstadoMontaje** es un `enum` con 4 valores cuyo `ordinal()` mapea directamente al indice del operario:
+Ademas, el **EstadoMontaje** es un `enum` con 4 valores cuyo `ordinal()` mapea directamente al indice del operario:
 
 ```
 EstadoMontaje.CHASIS    ordinal=0  -->  operarios.get(0)
@@ -240,10 +248,12 @@ EstadoMontaje.TAPICERIA ordinal=2  -->  operarios.get(2)
 EstadoMontaje.RUEDAS    ordinal=3  -->  operarios.get(3)
 ```
 
-**Relacion CadenaMontaje --> Operario (polimorfismo):**
-CadenaMontaje no sabe si el operario es eficiente o estandar. Solo llama a `getOperarioActual().getTiempoTarea()`, y Java resuelve la llamada al metodo correcto segun el tipo real del objeto en tiempo de ejecucion. Esto permite que una cadena con operarios mixtos tenga tiempos distintos en cada fase.
+Finalmente, se produce una **Relacion poliformica entre  CadenaMontaje --> Operario :**
+donde la CadenaMontaje no sabe si el operario es eficiente o estandar. Solo llama a `getOperarioActual().getTiempoTarea()`, y Java resuelve la llamada al metodo correcto segun el tipo real del objeto en tiempo de ejecucion. Esto permite que una cadena con operarios mixtos tenga tiempos distintos en cada fase.
 
 #### 1.5.4 Paquete de visualizacion: `Dashboard`
+
+`Dashboard` es la unica clase cuya responsabilidad es mostrar el estado del sistema. Recibe referencias de solo lectura al `Almacen` y a las cadenas, y nunca modifica ningun dato. Actua como la Vista en el patron MVC (Modelo Vista Controlador) del sistema.
 
 ```
 Dashboard
@@ -255,9 +265,11 @@ Dashboard
   |-- mostrarConsolidado():   llama a ambos metodos
 ```
 
-**Dashboard NO modifica nada.** Solo lee y muestra. Esto sigue el patron MVC (Modelo-Vista-Controlador): Almacen y CadenaMontaje son el **Modelo**, Planificador es el **Controlador**, y Dashboard es la **Vista**. Si en el futuro se quisiera reemplazar la salida por consola con una interfaz grafica, solo habria que crear un nuevo Dashboard sin tocar el resto del sistema.
+En este sentido, **Dashboard no modifica nada,** solo lee y muestra. Esto sigue el patron MVC (Modelo-Vista-Controlador) donde  Almacen y CadenaMontaje son el **Modelo**, Planificador es el **Controlador**, y Dashboard es la **Vista**. Si en el futuro se quisiera reemplazar la salida por consola con una interfaz grafica, solo habria que crear un nuevo Dashboard sin tocar el resto del sistema.
 
 #### 1.5.5 Paquete de entidades: Vehiculo + componentes
+
+Este paquete agrupa las clases que representan los productos y piezas de la fabrica. `Vehiculo` es la entidad central; sus componentes (`Motor`, `Tapiceria`, `Rueda`) se crean por separado, se almacenan en `Almacen`, y se asignan al vehiculo antes de entrar a la cadena de montaje.
 
 ```
 Vehiculo (abstract)
@@ -270,31 +282,47 @@ Cada subclase de `Vehiculo` (`BiplazaDeportivo`, `Turismo`, `Furgoneta`) hereda 
 
 #### 1.5.6 Resumen visual de dependencias
 
+A continuacion se muestra un mapa global de dependencias extraido del diagrama de clases (`diagrama5.pdf`). Se distinguen dos tipos de relacion: herencia (is-a) y dependencia de uso (crea o llama). Leer este mapa permite identificar de un vistazo quien controla a quien y que clases son mas independientes.
+
+**Dependencias de uso (flechas punteadas en el diagrama):**
+
 ```
-                    factory_main
-                   /      |      \
-                  v       v       v
-             Almacen  Planificador  Dashboard
-               ^       /    |          |
-               |      v     v          |
-               |  CadenaMontaje(x3)    |
-               |      |                |
-               |      v                |
-               +-- Vehiculo <---------+
-               |      |
-               |      +-- Motor / Tapiceria / Rueda
-               |
-               +-- Trabajador
-                     |-- Operario (usado por CadenaMontaje)
-                     |-- MecanicoCinta (Nivel 3)
-                     |-- GestorPlanta
-                     |-- AdminSistema (Nivel 3)
+factory_main  -->  Almacen, Planificador, Dashboard         (los crea)
+factory_main  -->  OperarioEficiente, OperarioEstandar      (los crea para configurar cadenas)
+factory_main  -->  MecanicoEfectivo, MecanicoEstandar       (los crea para simulaciones Nivel 3)
+factory_main  -->  AdminSistema, GestorPlanta               (los crea y registra en almacen)
+factory_main  -->  Turismo, Furgoneta, BiplazaDeportivo     (los crea y asigna a cadenas)
+factory_main  -->  Motor, Tapiceria, Rueda (subtipos)       (los crea y asigna a vehiculos)
+
+Planificador  -->  Dashboard                                (llama mostrarConsolidado() cada tick - avanzarTiempo)
+Planificador  -->  Almacen                                  (guarda vehiculos terminados)
+Planificador  -->  CadenaMontaje                            (avanza, provoca averias, repara)
+Planificador  -->  Vehiculo                                 (parametro en configurarCadenas())
+Planificador  -->  Operario                                 (parametro en configurarCadenas())
+Planificador  -->  MecanicoEfectivo, MecanicoEstandar       (parametros en ejecutarCompleja())
+Planificador  -->  AdminSistema                             (parametro en ejecutarMuyCompleja())
+
+Dashboard     -->  Almacen                                  (lee stock via getters)
+Dashboard     -->  CadenaMontaje                            (lee estado de cada cadena)
+Dashboard     -->  Operario                                 (lee lista para listados Nivel 3)
+
+Almacen       -->  Trabajador                               (almacena en HashMap<String,Trabajador>)
+Almacen       -->  Motor, Tapiceria, Rueda, Vehiculo        (almacena en ArrayLists)
+
+CadenaMontaje -->  Vehiculo                                 (ensambla el vehiculo fase a fase)
+CadenaMontaje -->  Operario                                 (llama getTiempoTarea() — polimorfismo)
+CadenaMontaje -->  EstadoMontaje                            (enum que controla el estado actual)
 ```
 
-Leyenda:
-- Flechas `-->` = "crea" o "depende de"
-- `factory_main` es la unica clase que crea los componentes centrales
-- `Almacen` no tiene flechas salientes: no conoce a nadie, otros lo usan a el
+**Clases clave por numero de dependencias salientes:**
+
+| Clase | Flechas salientes | Rol |
+|---|---|---|
+| `factory_main` | muchas | coordinador/creador — punto de entrada |
+| `Planificador` | muchas | motor de simulacion — controla todo el flujo |
+| `Dashboard` | pocas (solo lectura) | vista — no modifica nada |
+| `Almacen` | ninguna | dato puro — el mas independiente del sistema |
+| `EstadoMontaje` | ninguna | enum — solo define valores, no depende de nadie |
 
 ---
 
@@ -304,7 +332,7 @@ Leyenda:
 
 ### 2.1 Gestion de almacen
 
-El requerimiento de implementacion de la Gestion de almacen se realiza en la clase `Almacen.java` que  permite:
+Segun el requerimiento de implementacion de la practica, la Gestion de almacen se realiza en la clase `Almacen.java` que permite:
 
 - **Anadir componentes:** `addMotor()`, `addTapiceria()`, `addRueda()` insertan piezas en las listas.
 - **Quitar componentes (FIFO):** `quitarMotor()`, `quitarTapiceria()`, `quitarRueda()` extraen el primer elemento, preparado para un flujo futuro donde la cadena consuma piezas del stock.
@@ -312,7 +340,8 @@ El requerimiento de implementacion de la Gestion de almacen se realiza en la cla
 - **Consultar stock:** getters de tamanio (`getMotoresSize()`, etc.) para el Dashboard.
 - **Mostrar inventario:** `mostrarInventario()` imprime un resumen consolidado.
 
-**Estructura de datos elegida:**
+**Estructura de datos elegida es:**
+
 - `HashMap<String, Trabajador>` para trabajadores: permite busqueda directa por DNI en O(1).
 - `ArrayList` para motores, tapicerias, ruedas, vehiculos: mantiene el orden de insercion y permite acceso por indice.
 
@@ -326,7 +355,7 @@ El requerimiento de implementacion de la Gestion de trabajadores se realiza en l
 - **Busqueda por nombres + apellidos:** `buscarTrabajadorNombresApellidos()` — misma estrategia de recorrido con dos criterios.
 - **Listado completo:** `listarTrabajadores()` imprime el `toString()` de cada trabajador.
 
-**Decision de diseno (busquedas sencillas):** el enunciado pide "busquedas sencillas" sin especificar por que criterio. Se adopta la decision de implementar busqueda por DNI (la mas eficiente), por nombres, y por nombres+apellidos. Esto cubre los casos de uso mas habituales sin acomplejidad innecesaria.
+Cabe senalar que la **decision de diseno para busquedas sencillas del enunciado pide "busquedas sencillas" sin especificar por que criterio. Se adopta la decision de implementar busqueda por DNI (la mas eficiente), por nombres, y por nombres+apellidos. Esto cubre los casos de uso mas habituales sin tomar una complejidad innecesaria.
 
 ### 2.3 Simulacion Simple (Planificador)
 
@@ -353,19 +382,17 @@ Segundo 3: tiempoRestante = 0, pasa a RUEDAS
 
 ### 2.4 Consultas y stock de vehiculos
 
-Las consultas y actualizacion del stock de vehiculos es Implementado en la `Dashboard.java`:
+Para el requerimiento de las consultas y actualizacion del stock de vehiculos, se ha implementado en la clase `Dashboard.java`:
 
 - `mostrarEstadoCadenas()`: recorre las 3 cadenas con un for clasico (para numerar "Cadena 1, 2, 3") e imprime su `toString()`.
 - `mostrarStockAlmacen()`: llama a los getters de tamanio del Almacen para imprimir el stock de motores, tapicerias, ruedas y vehiculos completados.
 - `mostrarConsolidado()`: llama a ambos metodos con cabecera visual.
 
-Tambien en `Almacen.mostrarInventario()`: imprime el total de trabajadores registrados y componentes en stock.
+Ademas, el metodo `Almacen.mostrarInventario()` imprime el total de trabajadores registrados y componentes en stock.
 
 ### 2.5 Menu textual
 
-> **Nota de requisito:** segun el enunciado, la interfaz textual es un requisito del **Nivel 3** ("desarrollar una interfaz textual del sistema para que las funciones identificadas en el nivel 2 funcionen correctamente"). Esta seccion documenta la version basica del menu (Nivel 2), cuya version completa con todas las opciones se describe en la seccion 3.4.
-
-Implementado en `factory_main.menuPrincipal()` con `Scanner` y un `switch`. La version de Nivel 2 expone las funciones basicas:
+Implementado en `factory_main.menuPrincipal()` con `Scanner` y un `switch` que muestra  la version de "sencilla" del Nivel 2, luego se expone las funciones basicas:
 
 ```
 === Fabrica de Vehiculos ===
@@ -379,6 +406,8 @@ Implementado en `factory_main.menuPrincipal()` con `Scanner` y un `switch`. La v
 
 `cargarDatosEjemplo()` crea instancias de prueba (operarios, motor, tapiceria, rueda, vehiculo) y configura la cadena 0 con ellos. El menu se amplia a 12 opciones en Nivel 3 (ver seccion 3.4).
 
+Notar, que  segun el enunciado, la interfaz textual es un requisito del **Nivel 3** ("desarrollar una interfaz textual del sistema para que las funciones identificadas en el nivel 2 funcionen correctamente"). Esta seccion documenta la version basica del menu (Nivel 2), cuya version completa con todas las opciones se describe en la seccion 3.4.
+
 ---
 
 <a id="nivel-3"></a>
@@ -386,6 +415,8 @@ Implementado en `factory_main.menuPrincipal()` con `Scanner` y un `switch`. La v
 ## 3. Nivel 3 — Implementacion
 
 ### 3.1 Simulacion Compleja — `ejecutarCompleja()`
+
+Esta simulacion extiende el Nivel 2 introduciendo averias en las cadenas de montaje. Cuando una cadena sufre un problema, queda bloqueada hasta que un mecanico la repara. El tipo de mecanico asignado determina el tiempo de reparacion via polimorfismo, igual que ocurre con los operarios en la fase de montaje.
 
 Implementada en `Planificador.java`. Logica:
 
@@ -400,6 +431,8 @@ Implementada en `Planificador.java`. Logica:
 **Metodos anadidos:** `provocarAveria()`, `estaAveriada()`, `iniciarReparacion()`, `avanzarReparacion()`.
 
 ### 3.2 Simulacion Muy Compleja — `ejecutarMuyCompleja()`
+
+Esta simulacion añade un segundo tipo de incidencia global: la caida de luz. A diferencia de una averia de cinta (que afecta a una sola cadena), la caida de luz detiene toda la planta y requiere que el `AdminSistema` restaure primero el sistema de gestion y luego las cadenas de montaje, generando una parada total de 5 segundos.
 
 Implementada en `Planificador.java`. Logica:
 

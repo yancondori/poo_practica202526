@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=MecanicoEstandar
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Estandar\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Mecanico\ estandar\:\ ha\ realizado\ 20\ o\ menos\ reparaciones.\n\ Tarda\ entre\ 2\ y\ 5\ segundos\ en\ reparar\ (aleatorio\ con\ Random).\n\ Nivel\ 3\ IMPLEMENTADO\:\ usado\ en\ Planificador.ejecutarCompleja()\ y\ ejecutarMuyCompleja().\n\n\ @author\ Yan\ Condori\n
 comment1.params=nombres\ apellidos\ dni\ direccion\ numSegSec\ puesto\ salario\ fechaIngreso\ numReparaciones
 comment1.target=MecanicoEstandar(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ int)
 comment2.params=

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=MecanicoEfectivo
-comment0.text=\n\ Write\ a\ description\ of\ class\ Efectivo\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Mecanico\ efectivo\:\ ha\ realizado\ mas\ de\ 20\ reparaciones.\n\ Repara\ cualquier\ problema\ en\ 1\ segundo\ (getTiempoReparacion()\ retorna\ 1).\n\ Nivel\ 3\ IMPLEMENTADO\:\ usado\ en\ Planificador.ejecutarCompleja()\ para\ la\ primera\ averia\ de\ cada\ cadena.\n\n\ @author\ Yan\ Condori\n
 comment1.params=nombres\ apellidos\ dni\ direccion\ numSegSec\ puesto\ salario\ fechaIngreso\ numReparaciones
 comment1.target=MecanicoEfectivo(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ int)
 comment2.params=

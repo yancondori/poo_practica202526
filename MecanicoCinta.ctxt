@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=MecanicoCinta
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Mecanico\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Clase\ abstracta\ intermedia\ para\ los\ mecanicos\ de\ cinta.\n\ A\u00F1ade\ numReparaciones\ (experiencia)\ y\ el\ metodo\ abstracto\ getTiempoReparacion().\n\ Subclases\:\ MecanicoEfectivo\ (>20\ reparaciones,\ 1\ seg)\ y\ MecanicoEstandar\ (<\=20,\ 2-5\ seg).\n\n\ Nivel\ 3\ IMPLEMENTADO\:\ registrarReparaciones()\ y\ getTiempoReparacion()\ (abstracto)\ son\n\ el\ contrato\ que\ MecanicoEfectivo\ y\ MecanicoEstandar\ cumplen\ y\ que\ Planificador\ invoca\n\ en\ ejecutarCompleja()\ y\ ejecutarMuyCompleja().\n\n\ @author\ Yan\ Condori\n
 comment1.params=nombres\ apellidos\ dni\ direccion\ numSegSec\ puesto\ salario\ fechaIngreso\ numReparaciones
 comment1.target=MecanicoCinta(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ int)
 comment2.params=

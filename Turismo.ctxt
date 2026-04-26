@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Turismo
-comment0.text=\n\ Write\ a\ description\ of\ class\ Turismo\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Clase\ concreta\ que\ representa\ un\ vehiculo\ de\ tipo\ Turismo.\n\ Hereda\ de\ Vehiculo\ todos\ sus\ atributos\ (color,\ plazas,\ tara,\ pesoMax,\ motor,\ tapiceria,\ rueda).\n\ No\ a\u00F1ade\ campos\ propios\ \u2014\ su\ rol\ es\ identificar\ el\ tipo\ de\ vehiculo\ en\ la\ jerarquia.\n\n\ @author\ Yan\ Condori\n
 comment1.params=color\ numPlaza\ tara\ pesoMax\ motor\ tapiceria\ rueda
 comment1.target=Turismo(java.lang.String,\ int,\ double,\ double,\ Motor,\ Tapiceria,\ Rueda)
 comment2.params=

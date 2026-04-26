@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Furgoneta
-comment0.text=\n\ Write\ a\ description\ of\ class\ Furgoneta\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Clase\ concreta\ que\ representa\ un\ vehiculo\ de\ tipo\ Furgoneta.\n\ Hereda\ todos\ los\ atributos\ de\ Vehiculo\ sin\ a\u00F1adir\ campos\ propios.\n\n\ @author\ Yan\ Condori\n
 comment1.params=color\ numPlaza\ tara\ pesoMax\ motor\ tapiceria\ rueda
 comment1.target=Furgoneta(java.lang.String,\ int,\ double,\ double,\ Motor,\ Tapiceria,\ Rueda)
 comment2.params=
