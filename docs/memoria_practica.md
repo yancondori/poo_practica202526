@@ -27,9 +27,25 @@
    - 3.2 Simulacion Muy Compleja
    - 3.3 Dashboard — listados y estadisticas
    - 3.4 Interfaz textual completa
-   - 3.5 Supuestos adicionales del Nivel 3
-4. [Supuestos y decisiones de diseño](#asunciones)
+4. [Supuestos y decisiones de diseño](#supuestos)
+   - 4.1 Fechas como String
+   - 4.2 Una Rueda por vehiculo
+   - 4.3 Motor: jerarquia con clase intermedia MotorCombustion
+   - 4.4 Almacen desacoplado
+   - 4.5 Dashboard como Vista (patron MVC)
+   - 4.6 Referencia circular Planificador-Dashboard
+   - 4.7 Operarios: tipo fijo, no dinamico
+   - 4.8 Seleccion de operarios en simulacion Simple
+   - 4.9 Consumo de componentes del Almacen
+   - 4.10 Uso del enum EstadoMontaje con ordinal()
+   - 4.11 Busquedas sencillas
+   - 4.12 GestorPlanta como clase representacional
+   - 4.13 Supuestos adicionales del Nivel 3
 5. [Conceptos de Programacion Orientada a Objetos aplicados](#conceptos-poo)
+   - 5.1 Abstraccion
+   - 5.2 Encapsulamiento
+   - 5.3 Herencia
+   - 5.4 Polimorfismo
 6. [Estructura de ficheros](#estructura)
 
 ---
@@ -404,7 +420,7 @@ Implementado en `factory_main.menuPrincipal()` con `Scanner` y un `switch` que m
 0. Salir
 ```
 
-`cargarDatosEjemplo()` crea instancias de prueba (operarios, motor, tapiceria, rueda, vehiculo) y configura la cadena 0 con ellos. El menu se amplia a 12 opciones en Nivel 3 (ver seccion 3.4).
+En este caso, el metodo`cargarDatosEjemplo()` crea instancias de prueba (operarios, motor, tapiceria, rueda, vehiculo) y configura la cadena 0 con ellos. El menu se amplia a 12 opciones en Nivel 3 (ver seccion 3.4).
 
 Notar, que  segun el enunciado, la interfaz textual es un requisito del **Nivel 3** ("desarrollar una interfaz textual del sistema para que las funciones identificadas en el nivel 2 funcionen correctamente"). Esta seccion documenta la version basica del menu (Nivel 2), cuya version completa con todas las opciones se describe en la seccion 3.4.
 
@@ -416,9 +432,11 @@ Notar, que  segun el enunciado, la interfaz textual es un requisito del **Nivel 
 
 ### 3.1 Simulacion Compleja — `ejecutarCompleja()`
 
-Esta simulacion extiende el Nivel 2 introduciendo averias en las cadenas de montaje. Cuando una cadena sufre un problema, queda bloqueada hasta que un mecanico la repara. El tipo de mecanico asignado determina el tiempo de reparacion via polimorfismo, igual que ocurre con los operarios en la fase de montaje.
+Esta simulacion extiende el Nivel 2 introduciendo averias en las cadenas de montaje. Cuando una cadena sufre un problema, queda bloqueada hasta que un mecanico la repara. El tipo de mecanico asignado determina el tiempo de reparacion via polimorfismo a través de `getTiempoReparacion()`, igual que ocurre con los operarios en la fase de montaje.
 
-Implementada en `Planificador.java`. Logica:
+Asi en esta simulacion el metodo `getTiempoReparacion()` esta declarado `abstract` en `MecanicoCinta` y cada subclase lo implementa de forma distinta: `MecanicoEfectivo` retorna siempre 1, mientras que `MecanicoEstandar` retorna un valor aleatorio entre 2 y 5. En `ejecutarCompleja()`, `Planificador` llama a `mecEfectivo.getTiempoReparacion()` o `mecEstandar.getTiempoReparacion()` segun el mecanico asignado, y Java resuelve en tiempo de ejecucion que implementacion ejecutar. Es el mismo patron que con los operarios (`getTiempoTarea()` en `Operario`), aplicado ahora a la rama de mecanicos.
+
+La logica de la situacion compleja esta Implementada en `Planificador.java` de la siguiente manera:
 
 - Se pre-programan **2 averias por cadena** en segundos determinados (aleatorios entre 2-3 y 5-6).
 - Cuando una cadena sufre una averia, queda bloqueada (`averiada=true` en `CadenaMontaje`).
@@ -427,14 +445,14 @@ Implementada en `Planificador.java`. Logica:
 - Mientras la cadena esta averiada, `avanzarTiempo()` no se ejecuta; solo avanza la reparacion.
 - Al finalizar se muestra un resumen de reparaciones por cadena y por perfil.
 
-**Campos anadidos a `CadenaMontaje`:** `averiada`, `tiempoReparacion`, `totalAverias`.
-**Metodos anadidos:** `provocarAveria()`, `estaAveriada()`, `iniciarReparacion()`, `avanzarReparacion()`.
+Los campos  anadidos para la situación compleja en  `CadenaMontaje`:** son  `averiada`, `tiempoReparacion`, `totalAverias`.
+en tanto los Metodos anadidos son `provocarAveria()`, `estaAveriada()`, `iniciarReparacion()`, `avanzarReparacion()`.
 
 ### 3.2 Simulacion Muy Compleja — `ejecutarMuyCompleja()`
 
 Esta simulacion añade un segundo tipo de incidencia global: la caida de luz. A diferencia de una averia de cinta (que afecta a una sola cadena), la caida de luz detiene toda la planta y requiere que el `AdminSistema` restaure primero el sistema de gestion y luego las cadenas de montaje, generando una parada total de 5 segundos.
 
-Implementada en `Planificador.java`. Logica:
+La logica de la situacion compleja esta Implementada  en `Planificador.java` de la siguiente manera:
 
 - Se pre-programan **2 a 3 averias por cadena** (aleatorio), reparadas por mecanico estandar.
 - Se programa **1 caida de luz** en el segundo 4 que detiene todas las cadenas.
@@ -444,18 +462,20 @@ Implementada en `Planificador.java`. Logica:
 
 ### 3.3 Dashboard — listados y estadisticas
 
-Implementados en `Dashboard.java`:
+Por otro lado, los listados y estadisticas son Implementados en `Dashboard.java`:
 
 - **`listarOperariosPorProductividad()`**: obtiene operarios del almacen, los ordena por `montajesPieza` de mayor a menor (burbuja), y muestra nombre, apellidos, montajes y tipo.
 - **`listarOperariosAlfabetico()`**: misma lista, ordenada por apellidos (burbuja, `compareToIgnoreCase`).
 - **`listarVehiculosFabricados()`**: delega a `Almacen.listarVehiculosFabricados()` que muestra cada vehiculo con todos sus componentes.
 - **`mostrarEstadoCadenasDetallado()`**: muestra cada cadena con indicador de averia y total de averias.
 
-**Nota:** se usa ordenacion burbuja para no depender de `Collections.sort()` ni `Comparator`, manteniendo la simplicidad acorde al nivel del curso.
+Cabe senalar que  se usa ordenacion burbuja o 'en pares' para no depender de `Collections.sort()` ni `Comparator`,  cin el objetivo de mantener la simplicidad del proyecto.
 
 ### 3.4 Interfaz textual completa
 
-Implementada en `factory_main.java` con un menu de 12 opciones + salir:
+De acuerdo al enunciado del Nivel 3 que exige "desarrollar una interfaz textual del sistema para que las funciones identificadas en el nivel 2 funcionen correctamente". Esta seccion cubre ese requisito: el menu de Nivel 3 integra en un unico punto de entrada todas las funciones de los tres niveles (gestion de datos, simulaciones y dashboard), accesibles sin necesidad de instanciar clases manualmente desde BlueJ.
+
+Esta interfaz es Implementada en `factory_main.java` con un menu de 12 opciones + salir:
 
 ```
 [Datos]       1-4: cargar datos, inventario, listar/buscar trabajadores
@@ -464,7 +484,7 @@ Implementada en `factory_main.java` con un menu de 12 opciones + salir:
 [Salir]       0
 ```
 
-El metodo `cargarDatosEjemplo()` ahora crea un juego completo de datos de prueba:
+Por otro lado, el metodo `cargarDatosEjemplo()` de la clase `factory_main.java` ahora crea un juego completo de datos de prueba:
 - 6 operarios (3 eficientes, 3 estandar)
 - 1 mecanico efectivo + 1 mecanico estandar
 - 1 admin del sistema + 1 gestor de planta
@@ -472,23 +492,13 @@ El metodo `cargarDatosEjemplo()` ahora crea un juego completo de datos de prueba
 - 3 vehiculos (BiplazaDeportivo, Turismo, Furgoneta)
 - Las 3 cadenas configuradas con vehiculos y operarios
 
-### 3.5 Supuestos adicionales del Nivel 3
-
-**S1. Averias pre-programadas:** el enunciado dice que debe haber "al menos dos problemas por cinta". Se opto por pre-programar las averias en segundos determinados (con variacion aleatoria) en lugar de generarlas con probabilidad en cada tick. Esto garantiza que se cumplen los minimos exigidos sin depender del azar.
-
-**S2. Caida de luz fija en segundo 4:** el enunciado pide "al menos un problema de caida de luz". Se fija en el segundo 4 para que ocurra a mitad de la simulacion, maximizando el impacto visible. La restauracion es secuencial: primero gestion (2s), luego cadenas (3s).
-
-**S3. Mecanicos como parametros:** `ejecutarCompleja()` recibe un `MecanicoEfectivo` y un `MecanicoEstandar` como parametros en lugar de buscarlos internamente. Esto permite al menu buscarlos en el almacen y validar que existen antes de lanzar la simulacion.
-
-**S4. Ordenacion con burbuja:** se usa el algoritmo de burbuja para ordenar listas en los listados del Dashboard, ya que es el mas sencillo y no requiere importar `Collections` ni implementar `Comparable`. Para los volumenes de datos de esta practica, el rendimiento no es un problema.
-
 ---
 
 <a id="asunciones"></a>
 
 ## 4. Supuestos y decisiones de diseno
 
-Segun el enunciado: *"para cualquier otro detalle de diseno que no se encuentre descrito expresamente, el alumno tiene libertad para tomar cuantas decisiones considere oportunas"*. A continuacion se documentan las decisiones tomadas.
+De acuerdo al requerimiento del diseno de la practica ,  a continuacion se documentan los supuestos usados.
 
 ### 4.1 Fechas como String
 
@@ -504,15 +514,15 @@ El enunciado dice que los atributos tecnicos del motor son: cilindrada, potencia
 
 ### 4.4 Almacen desacoplado
 
-`Almacen` no conoce a `Planificador`, `Dashboard` ni `CadenaMontaje`. Solo almacena y devuelve datos. Las clases que necesitan datos del almacen reciben una referencia a el en su constructor (inyeccion de dependencias). Si se cambiara la estructura interna de `Almacen`, ningun otro componente necesitaria modificaciones.
+La clase `Almacen` no conoce a `Planificador`, `Dashboard` ni `CadenaMontaje`. Solo almacena y devuelve datos. Las clases que necesitan datos del almacen reciben una referencia a el en su constructor (inyeccion de dependencias). Si se cambiara la estructura interna de `Almacen`, ningun otro componente necesitaria modificaciones.
 
 ### 4.5 Dashboard como Vista (patron MVC)
 
-`Dashboard` solo lee datos del `Almacen` y de las cadenas de montaje; nunca los modifica. Esto responde al requisito del enunciado de que el subsistema de visualizacion este desacoplado y sea facilmente reemplazable. En la practica, esto se asemeja al patron Modelo-Vista-Controlador (MVC): `Almacen` y `CadenaMontaje` son el Modelo, `Planificador` es el Controlador, y `Dashboard` es la Vista.
+La clase `Dashboard` solo lee datos del `Almacen` y de las cadenas de montaje; nunca los modifica. Esto responde al requisito del enunciado de que el subsistema de visualizacion este desacoplado y sea facilmente reemplazable. En la practica, esto se asemeja al patron Modelo-Vista-Controlador (MVC): `Almacen` y `CadenaMontaje` son el Modelo, `Planificador` es el Controlador, y `Dashboard` es la Vista.
 
 ### 4.6 Referencia circular Planificador-Dashboard
 
-`Planificador` necesita `Dashboard` para mostrar el estado despues de cada segundo, pero `Dashboard` necesita las cadenas del `Planificador` para leer su estado. Se resuelve en `factory_main` con una inicializacion en 3 pasos:
+El `Planificador` necesita `Dashboard` para mostrar el estado despues de cada segundo, pero `Dashboard` necesita las cadenas del `Planificador` para leer su estado. Se resuelve en `factory_main` con una inicializacion en 3 pasos:
 1. Crear `Planificador` con `dashboard=null`
 2. Crear `Dashboard` con `almacen` + `planificador.getCadenas()`
 3. Inyectar: `planificador.setDashboard(dashboard)`
@@ -541,11 +551,25 @@ Como el enunciado no especifica por que criterio deben hacerse las busquedas de 
 
 `GestorPlanta` no implementa logica activa en la simulacion. Su funcion es representar el rol de gestor dentro del almacen de trabajadores, cumpliendo con la jerarquia de herencia de `Trabajador`. La logica de monitoreo de cadenas y coordinacion de mecanicos la ejecuta directamente `Planificador`, ya que este es quien controla el bucle de tiempo y tiene acceso a las cadenas y al dashboard.
 
+### 4.13 Supuestos adicionales del Nivel 3
+
+Las siguientes decisiones aplican exclusivamente a las simulaciones Compleja y MuyCompleja (Nivel 3), donde el enunciado deja libertad al alumno en los detalles de implementacion.
+
+​	**a. Averias pre-programadas:** el enunciado dice que debe haber "al menos dos problemas por cinta". Se opto por pre-programar 	las averias en segundos determinados (con variacion aleatoria) en lugar de generarlas con probabilidad en cada tick.Esto garantiza que se cumplen los minimos exigidos sin depender del azar.
+
+​	**b. Caida de luz fija en segundo 4:** el enunciado pide "al menos un problema de caida de luz". Se fija en el segundo 4 para que ocurra a mitad de la simulacion, maximizando el impacto visible. La restauracion es secuencial: primero gestion (2s), luego cadenas (3s).
+
+​	**c. Mecanicos como parametros:** `ejecutarCompleja()` recibe un `MecanicoEfectivo` y un `MecanicoEstandar` como parametros en lugar de buscarlos internamente. Esto permite al menu buscarlos en el almacen y validar que existen antes de lanzar la simulacion.
+
+​	**d. Ordenacion con burbuja:** se usa el algoritmo de burbuja para ordenar listas en los listados del Dashboard, ya que es el mas sencillo y no requiere importar `Collections` ni implementar `Comparable`. Para los volumenes de datos de esta practica, el rendimiento no es un problema.
+
 ---
 
 <a id="conceptos-poo"></a>
 
 ## 5. Conceptos de POO aplicados
+
+Siguiendo el esquema de la practica, el enunciado del Nivel 1 exige identificar y documentar los conceptos de Programacion Orientada a Objetos presentes en el diseño. Esta seccion recorre los cuatro pilares fundamentales de POO: abstraccion, encapsulamiento, herencia y polimorfismo — mostrando en que clases y metodos concretos del proyecto se aplica cada uno.
 
 ### 5.1 Abstraccion
 
