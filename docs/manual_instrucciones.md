@@ -165,10 +165,12 @@ poo_practica202526/
   |-- factory_main.java     <-- EJECUTAR AQUI (punto de entrada)
   |-- *.java                <-- 32 clases Java en la raiz (requisito BlueJ)
   |-- docs/
-        |-- memoria_practica.md       <-- Memoria de la practica
-        |-- manual_instrucciones.md   <-- Este documento
-        |-- diagram_class_practica2526.png  <-- Diagrama de clases
-        |-- practica2526.md           <-- Enunciado
+        |-- memoria_practica.md           <-- Memoria de la practica
+        |-- memoria_practica_v2.md        <-- Memoria actualizada (version final)
+        |-- manual_instrucciones.md       <-- Este documento
+        |-- diagram_class_practica2526.png  <-- Diagrama de clases (original)
+        |-- diagrama5.pdf                 <-- Diagrama de clases (version final PDF)
+        |-- practica2526.md               <-- Enunciado
         |-- PracticaOOP202526_goodnotes.pdf <-- Enunciado anotado
 ```
 
