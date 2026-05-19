@@ -101,7 +101,7 @@ El diagrama de clases completo (cubre los 3 niveles del enunciado) se encuentra 
 
 > **`docs/diagram_class_practica2526.png`**
 
-Este diagrama fue generado desde BlueJ y muestra todas las clases con sus relaciones de herencia (flechas solidas) y dependencias de uso (flechas punteadas).
+
 
 ### 1.4 Jerarquias de herencia
 
