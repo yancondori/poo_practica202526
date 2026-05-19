@@ -37,6 +37,20 @@ public class Almacen
         trabajadores.put(dni, trabajador); // setter
     }
     
+    public Trabajador quitarTrabajador(String dni) // dar de baja por DNI
+    {
+      Trabajador t = trabajadores.remove(dni); // HashMap.remove(key) devuelve el valor borrado o null
+      if (t != null)
+      {
+          System.out.println("Trabajador dado de baja: " + t);
+      }
+      else
+      {
+          System.out.println("No existe trabajador con DNI: " + dni);
+      }
+      return t;
+    }
+   
     public Trabajador getTrabajador(String dni) // usamos el dni como key para la busqueda de la coleccion hashmap trabajadores
     {
         return trabajadores.get(dni); // return valordevuelto(); nombreObjeto.metodo(), los metodos : getters or setters
