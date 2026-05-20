@@ -83,6 +83,48 @@ DNIs de ejemplo para buscar:
 
 ### Paso 3: Ejecutar una simulacion (opciones 5, 6 o 7)
 
+#### Cuantos vehiculos se producen y por que
+
+**Siempre 3 vehiculos — en las tres simulaciones.** El numero de vehiculos producidos no depende del nivel de complejidad, sino del numero de cadenas configuradas.
+
+La logica es:
+
+```
+cargarDatosEjemplo() configura 3 CadenaMontaje, una por tipo:
+  cadena[0] → BiplazaDeportivo
+  cadena[1] → Turismo
+  cadena[2] → Furgoneta
+
+Cada cadena produce exactamente 1 vehiculo cuando completa las 4 fases.
+3 cadenas × 1 vehiculo = 3 vehiculos siempre.
+```
+
+La diferencia entre niveles no es el numero de vehiculos sino el **tiempo y los eventos** que ocurren durante la produccion:
+
+| Simulacion     | Vehiculos | Duracion aprox. | Eventos extra                          |
+|----------------|-----------|-----------------|----------------------------------------|
+| Simple         | 3         | ~4-9 seg        | Ninguno                                |
+| Compleja       | 3         | ~10-18 seg      | 2 averias por cadena, 2 mecanicos      |
+| Muy Compleja   | 3         | ~18-28 seg      | 2-3 averias + 1 caida de luz (5 seg)   |
+
+#### El proceso interno: como se fabrica un vehiculo
+
+Cada tick (segundo) el `Planificador` llama a `cadena.avanzarTiempo()`, que internamente hace:
+
+```
+tick 1: tiempoRestante = 0 → transicion CHASIS → MOTOR, inicia cuenta atras
+tick 2: tiempoRestante > 0 → decrementa, espera
+...
+tick N: tiempoRestante = 0 → transicion MOTOR → TAPICERIA
+...
+tick M: tiempoRestante = 0 → transicion TAPICERIA → RUEDAS
+...
+tick Z: tiempoRestante = 0, estado = RUEDAS → funcionando = false, return true
+         └─ Planificador recibe true → almacen.addVehiculosFabricados(vehiculo)
+```
+
+Cuando `avanzarTiempo()` devuelve `true` el vehiculo entra en el almacen. Las averias (Compleja y Muy Compleja) simplemente interrumpen este flujo durante N segundos — la cadena no avanza durante la reparacion pero **retoma exactamente donde se quedo**.
+
 #### Opcion 5 — Simulacion Simple (Nivel 2)
 
 - Las 3 cadenas ensamblan vehiculos sin averias.
@@ -97,12 +139,13 @@ DNIs de ejemplo para buscar:
 
 #### Opcion 6 — Simulacion Compleja (Nivel 3)
 
-- Igual que la Simple, pero se producen **2 averias por cadena**.
+- Igual que la Simple, pero se producen **2 averias por cadena** (6 en total).
 - Cada averia detiene la cadena afectada.
 - Un mecanico repara la averia:
-  - Averia 1: reparada por mecanico efectivo (1 segundo)
-  - Averia 2: reparada por mecanico estandar (2-5 segundos, aleatorio)
+  - Averia 1 (segundo 2 o 3): reparada por mecanico efectivo (1 segundo fijo)
+  - Averia 2 (segundo 5 o 6): reparada por mecanico estandar (2-5 segundos, aleatorio)
 - Al final se muestra un resumen de reparaciones.
+- **Vehiculos producidos: 3** (las averias retrasan pero no cancelan el montaje).
 
 **Que observar:** las cadenas se detienen durante las averias y retoman el montaje tras la reparacion. El mecanico estandar tarda mas que el efectivo.
 
@@ -111,12 +154,13 @@ DNIs de ejemplo para buscar:
 - Igual que la Compleja, pero ademas:
   - Se producen **2-3 averias por cadena** (reparadas por mecanico estandar).
   - Se produce **1 caida de luz** en el segundo 4:
-    - Todas las cadenas se detienen.
+    - Todas las cadenas se detienen completamente.
     - El administrador restaura el sistema de gestion (2 segundos).
     - Luego restaura las cadenas de montaje (3 segundos).
-    - Total: 5 segundos de parada global.
+    - Total: 5 segundos de parada global en todas las cadenas.
+- **Vehiculos producidos: 3** (la caida de luz pausa todo pero el montaje continua despues).
 
-**Que observar:** durante la caida de luz ninguna cadena avanza. Tras la restauracion, las cadenas reanudan donde se quedaron.
+**Que observar:** durante la caida de luz ninguna cadena avanza. Tras la restauracion, las cadenas reanudan exactamente donde se quedaron.
 
 ### Paso 4: Consultar resultados (opciones 8-12)
 

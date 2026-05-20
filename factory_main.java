@@ -30,23 +30,23 @@ public class factory_main
     {
         // Operarios (4 por cadena = 12 total)
         OperarioEficiente op1 = new OperarioEficiente(
-            "Juan", "Garcia", "12345678A", "Calle Mayor 1",
-            "28/1234567/09", "Operario", 1800.0, "2024-01-15", 15);
+            "Juan", "Garcia", "123", "Calle Mayor 1",
+            "28/123", "Operario", 1800.0, "2024-01-15", 15);
         OperarioEstandar op2 = new OperarioEstandar(
-            "Maria", "Lopez", "87654321B", "Calle Sol 5",
-            "28/7654321/09", "Operario", 1600.0, "2024-03-10", 5);
+            "Maria", "Lopez", "456", "Calle Sol 5",
+            "28/456", "Operario", 1600.0, "2024-03-10", 5);
         OperarioEficiente op3 = new OperarioEficiente(
-            "Pedro", "Martinez", "11111111C", "Av Libertad 10",
-            "28/1111111/09", "Operario", 1850.0, "2023-06-01", 20);
+            "Pedro", "Martinez", "111", "Av Libertad 10",
+            "28/111", "Operario", 1850.0, "2023-06-01", 20);
         OperarioEstandar op4 = new OperarioEstandar(
-            "Ana", "Ruiz", "22222222D", "Calle Luna 3",
-            "28/2222222/09", "Operario", 1550.0, "2024-09-01", 3);
+            "Ana", "Ruiz", "222", "Calle Luna 3",
+            "28/222", "Operario", 1550.0, "2024-09-01", 3);
         OperarioEficiente op5 = new OperarioEficiente(
-            "Luis", "Fernandez", "33333333E", "Paseo del Rio 7",
-            "28/3333333/09", "Operario", 1900.0, "2022-11-20", 25);
+            "Luis", "Fernandez", "333", "Paseo del Rio 7",
+            "28/333", "Operario", 1900.0, "2022-11-20", 25);
         OperarioEstandar op6 = new OperarioEstandar(
-            "Elena", "Diaz", "44444444F", "Calle Norte 15",
-            "28/4444444/09", "Operario", 1500.0, "2025-01-10", 2);
+            "Elena", "Diaz", "444", "Calle Norte 15",
+            "28/444", "Operario", 1500.0, "2025-01-10", 2);
 
         almacen.addTrabajador(op1.getDni(), op1);
         almacen.addTrabajador(op2.getDni(), op2);
@@ -57,26 +57,26 @@ public class factory_main
 
         //  Mecanicos para el Nivel 3
         MecanicoEfectivo mec1 = new MecanicoEfectivo(
-            "Carlos", "Vega", "55555555G", "Calle Taller 1",
-            "28/5555555/09", "Mecanico", 2000.0, "2021-03-01", 25);
+            "Carlos", "Vega", "555", "Calle Taller 1",
+            "28/555", "Mecanico", 2000.0, "2021-03-01", 25);
         MecanicoEstandar mec2 = new MecanicoEstandar(
-            "Rosa", "Navarro", "66666666H", "Calle Taller 2",
-            "28/6666666/09", "Mecanico", 1700.0, "2024-05-15", 10);
+            "Rosa", "Navarro", "666", "Calle Taller 2",
+            "28/666", "Mecanico", 1700.0, "2024-05-15", 10);
 
         almacen.addTrabajador(mec1.getDni(), mec1);
         almacen.addTrabajador(mec2.getDni(), mec2);
 
         // AdminSistema para el Nivel 3
         AdminSistema admin = new AdminSistema(
-            "Miguel", "Sanchez", "77777777I", "Calle Sistema 1",
-            "28/7777777/09", "Administrador", 2200.0, "2020-01-01");
+            "Miguel", "Sanchez", "777", "Calle Sistema 1",
+            "28/777", "Administrador", 2200.0, "2020-01-01");
 
         almacen.addTrabajador(admin.getDni(), admin);
 
         // GestorPlanta
         GestorPlanta gestor = new GestorPlanta(
-            "Laura", "Torres", "88888888J", "Calle Planta 1",
-            "28/8888888/09", "Gestor", 2100.0, "2019-06-15");
+            "Laura", "Torres", "888", "Calle Planta 1",
+            "28/888", "Gestor", 2100.0, "2019-06-15");
 
         almacen.addTrabajador(gestor.getDni(), gestor);
 
@@ -127,7 +127,7 @@ public class factory_main
         equipo3.add(op5); equipo3.add(op5); equipo3.add(op6); equipo3.add(op6);
         planificador.configurarCadenas(2, coche3, equipo3);
 
-        System.out.println("Datos de ejemplo cargados: 10 trabajadores, 3 vehiculos, 3 cadenas configuradas.");
+        System.out.println("Datos de ejemplo cargados: 10 trabajadores, 3 vehiculos, 3 cadenas configuradas");
     }
 
     /**

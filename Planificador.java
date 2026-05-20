@@ -37,7 +37,7 @@ public class Planificador
     {
         CadenaMontaje cadena = cadenas.get(indice);
         cadena.asignarVehiculo(vehiculo);
-        for ( Operario op: operarios)
+        for (Operario op: operarios)
         {
             cadena.addOperario(op);
         }
